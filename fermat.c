@@ -84,7 +84,7 @@ int * decimaletobinairempz(mpz_t h ,int *taille )
 
      return tab;
    
-     
+     mpz_clear(res);
 
 }
 
@@ -113,6 +113,8 @@ void squaremultiplympz(mpz_t a , mpz_t n ,mpz_t h , mpz_t res)
     	}
     }
   mpz_set(res,r);
+  mpz_clear(r);
+
 }
 
 gmp_randstate_t etat;
@@ -133,8 +135,7 @@ int testFermatmpz(mpz_t n ,mpz_t k)
 
      int seed;
  
-  
-  
+
     seed = (int) time(&t);
 
     gmp_randinit_default(etat);
@@ -162,10 +163,22 @@ int testFermatmpz(mpz_t n ,mpz_t k)
         squaremultiplympz(a,n, sous1,sm);
         if(mpz_cmp_ui(sm ,1)!=0 )
         {
+        	  mpz_clear(i);
+			  mpz_clear(a);
+			  mpz_clear(sm);
+			  mpz_clear(sous);
+			  mpz_clear(sous1);
+  
         	return 0;
         }
 
     }
+  mpz_clear(i);
+  mpz_clear(a);
+  mpz_clear(sm);
+  mpz_clear(sous);
+  mpz_clear(sous1);
+  
     return 1;
 }
 
