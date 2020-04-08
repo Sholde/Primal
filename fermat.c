@@ -81,29 +81,58 @@ int * decimaletobinairempz(mpz_t h ,int *taille )
      	*taille = *taille + 1;
      	
      }
-     
+
      return tab;
    
      
 
 }
 
+void squaremultiplympz(mpz_t a , mpz_t n ,mpz_t h , mpz_t res)
+{
+    mpz_t r;
+    mpz_init(r);
+    mpz_set(r,a);
+
+    
+    int taille =0;
+
+    int * tab = decimaletobinairempz(h , &taille);
+
+    int i;
+    for(i = taille - 1 ; i>=0 ;i--)
+    {
+    	mpz_mul(r,r,r);
+    	mpz_mod(r,r ,n);
+    	
+    	if(tab[i] == 1 )
+    	{
+    		mpz_mul(r,r,a);
+    		mpz_mod(r,r,n);
+    		
+    	}
+    }
+  mpz_set(res,r);
+}
 
 int main(int argc, char const *argv[])
 {
-    mpz_t h;
-    mpz_init(h);
-    mpz_set_ui(h,8);
-   int taille;
-   
-  
-   int *tab ;
-   tab= decimaletobinairempz(h,&taille);
-   
-    for(int j = taille -1 ;j>=0 ; j--)
-    {
-    	
-    	printf("%d\n", tab[j]);
+    mpz_t a;
+    mpz_init(a);
+    mpz_set_ui(a,3);
 
-    }
+
+     mpz_t h;
+    mpz_init(h);
+    mpz_set_ui(h,3);
+
+     mpz_t n;
+    mpz_init(n);
+    mpz_set_ui(n,2);
+     mpz_t res;
+    mpz_init(res);
+    squaremultiplympz(a,n,h,res);
+    mpz_out_str(stdout, 10 , res);
+
+   
   }
