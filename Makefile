@@ -16,16 +16,18 @@ OBJ = $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 FLAG = -Wall -g3
 
+GMP = -lgmp
+
 # make
 
 all: config compil
 
 compil: $(OBJ)
-	@ $(CC) -o $(BINDIR)/$(EXEC) $(OBJ)
+	@ $(CC) -o $(BINDIR)/$(EXEC) $(OBJ) $(GMP)
 	@ echo "Linking complete!"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(DEPS)
-	@ $(CC) -c -o $@ $< $(FLAG)
+	@ $(CC) -c -o $@ $< $(FLAG) $(GMP)
 	@ echo "Compiled "$@" successfully!"
 
 run:
