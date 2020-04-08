@@ -60,67 +60,50 @@ int testFermat(int n ,int k)
     return 1;
 }
 
-/*int * decimaletobinairempz(mpz_t h ,int * taille)
+int * decimaletobinairempz(mpz_t h ,int *taille )
 {
-     int *tab= malloc(sizeof(int ));
-    
-     mpz_t i;
-     mpz_init(i);
-     for(mpz_set_ui(i,0); mpz_cmp_ui(h ,0)>0 ;mpz_add_ui(i,i,1))
-     {
-     	tab[i]= h%2;
-     	h = h /2;
-     	*taille = *taille +1 ;
-     }
      
-     return tab;
-
-}*/
-
-/*void squaremultiplympz(mpz_t a , mpz_t n ,mpz_t h , mpz_t r)
-{
-    mpz_t r;
-    mpz_init(r);
-    mpz_set(r,a);
-
     
-    int taille =0;
-
-    int * tab = decimaletobinaire(h , &taille);
     int i;
-    for(i = taille - 1 ; i>=0 ;i--)
-    {
-    	r = (r * r) % n ;
-    	if(tab[i] == 1 )
-    	{
-    		r = (r * a ) % n ;
-    	}
-    }
-    return r;
-}*/
-/*int * decimaletobinairempz(mpz_t h , mpz_t taille )
-{
-   
-    mpz_t i;
-    mpz_init(i);
-    mpz_set_ui(i , 0);
-    int *tab =malloc(sizeof(int ));
-    for(mpz_set_ui(i,0); mpz_cmp_ui(h , 0) >0 ; mpz_add_ui(i,i,1))
-    {
+    mpz_t res;
+    mpz_init(res);
+    int res1;
 
-        tab[i]
-    }
-     for(int i=0; h > 0;i++)
+    int *tab=malloc(sizeof(int));
+     
+     for(i=0; mpz_cmp_ui(h ,0)>0 ;i++)
      {
-     	tab[i]= h%2;
-     	h = h /2;
-     	*taille = *taille +1 ;
+
+     	mpz_mod_ui(res,h,2);
+     	res1=mpz_get_si(res);
+     	tab[i]=res1;
+     	mpz_div_ui(h,h,2);
+     	*taille = *taille + 1;
+     	
      }
      
      return tab;
-}*/
+   
+     
+
+}
+
+
 int main(int argc, char const *argv[])
 {
+    mpz_t h;
+    mpz_init(h);
+    mpz_set_ui(h,8);
+   int taille;
+   
+  
+   int *tab ;
+   tab= decimaletobinairempz(h,&taille);
+   
+    for(int j = taille -1 ;j>=0 ; j--)
+    {
+    	
+    	printf("%d\n", tab[j]);
 
-printf("%d\n",testFermat(3,5) );
-}
+    }
+  }
