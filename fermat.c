@@ -3,6 +3,7 @@
 #include <string.h>
 #include <gmp.h>
 #include <time.h>
+gmp_randstate_t etat;
 int * decimaletobinairempz(mpz_t h ,int *taille )
 {
     *taille=0;
@@ -48,7 +49,6 @@ void squaremultiplympz(mpz_t a , mpz_t n ,mpz_t h , mpz_t res)
   mpz_set(res,r);
   mpz_clear(r);
 }
-gmp_randstate_t etat;
 int testFermatmpz(mpz_t n ,mpz_t k)
 {
     mpz_t i;
@@ -66,23 +66,22 @@ int testFermatmpz(mpz_t n ,mpz_t k)
     mpz_t sous;
     mpz_init(sous);
     mpz_sub_ui(sous,n,1);
+    mpz_t sauv;
+    mpz_init(sauv);
     for(mpz_set_ui(i,0);mpz_cmp(i,k)<0;mpz_add_ui(i,i,1))
     {
        do { 
       	mpz_urandomm (a, etat, n);
-      }while(mpz_cmp_ui(a,0)==0);
-        squaremultiplympz(a,n, sous,sm);
+
+      }while(mpz_cmp_ui(a,0)==0 || mpz_cmp(a,sous)==0 || mpz_cmp_ui(a,1)==0);
+      mpz_set(sauv,sous);
+        squaremultiplympz(a,n, sauv,sm);
         if(mpz_cmp_ui(sm ,1)!=0 )
         {
-             mpz_clear(i);
-	     mpz_clear(a);
-	      mpz_clear(sm);
-	      mpz_clear(sous);
-        	return 0;} }
-  mpz_clear(i);
-  mpz_clear(a);
-  mpz_clear(sm);
-  mpz_clear(sous); 
+        	
+           return 0;
+        } 
+    }
    return 1;
 }
 int millerRabinmpz(mpz_t n, mpz_t k)
@@ -171,5 +170,6 @@ int main(int argc, char const *argv[])
     mpz_set_ui(n,13);
    mpz_t res;
    mpz_init(res);
+   printf("fermat=%d\n",testFermatmpz(a,h) );
    printf("miller =%d\n",millerRabinmpz(a,h) );  
   }
