@@ -51,6 +51,11 @@ void squaremultiplympz(mpz_t a , mpz_t n ,mpz_t h , mpz_t res)
 }
 int testFermatmpz(mpz_t n ,mpz_t k)
 {
+	if(mpz_cmp_ui(n,3)==0 || mpz_cmp_ui(n,2)==0)
+	{
+		return 1;
+	}
+
     mpz_t i;
     mpz_init(i);
     int result ;
@@ -161,7 +166,7 @@ int main(int argc, char const *argv[])
 {
     mpz_t a;
     mpz_init(a);
-    mpz_set_ui(a,17);
+    mpz_set_ui(a,4);
     mpz_t h;
     mpz_init(h);
     mpz_set_ui(h,3);
@@ -170,6 +175,6 @@ int main(int argc, char const *argv[])
     mpz_set_ui(n,13);
    mpz_t res;
    mpz_init(res);
-   printf("fermat=%d\n",testFermatmpz(a,h) );
+  printf("fermat=%d\n",testFermatmpz(a,h) );
    printf("miller =%d\n",millerRabinmpz(a,h) );  
   }
