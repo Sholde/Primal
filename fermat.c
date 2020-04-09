@@ -182,7 +182,49 @@ int testFermatmpz(mpz_t n ,mpz_t k)
     return 1;
 }
 
+int millerRabin(int n ,int k)
+{
+	int n1 = n-1;
+	int s = 0;
+	while(n1 % 2 !=0)
+	{
+         n1 = n1 /2;
 
+         s = s +1;
+	}
+	int i;
+	int a;
+	int n2 = n-1;
+	int y;
+	int result;
+	int j;
+	//0 compose ;
+	for(i= 1 ; i<=k ;i++ )
+	{
+		
+         a = rand() % n2 + 1; 
+         y = squaremultiply(a , n , n1);
+         if(y != 1 && y != -1 )
+         {
+         	for(j=1 ; j<s;j++ )
+         	{
+                  y=squaremultiply(y , n ,2);
+                  if(y == 1)
+                  {
+                  	return 0;
+                  }
+                  if(y == -1)
+                  {
+                  	break;
+                  }
+         	}
+         	return 0;
+         }
+
+		
+	}
+	return 1; // 1 est premie
+}
 int main(int argc, char const *argv[])
 {
     mpz_t a;
@@ -193,6 +235,7 @@ int main(int argc, char const *argv[])
     mpz_set_ui(k,10);
 
    printf("%d\n",testFermatmpz(a,k) );
+   printf("%d\n",millerRabin(8,10) );
 
    
   }
