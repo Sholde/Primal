@@ -7,10 +7,13 @@
 int * decimaletobinaire(int h ,int * taille)
 {
      int *tab= malloc(sizeof(int ));
-    
-     for(int i=0; h > 0;i++)
+     *taille=0;
+    while(h>0)
      {
-     	tab[i]= h%2;
+     	if(h %2 ==0 )
+           	tab[*taille]= 0;
+           else tab[*taille]=1;
+
      	h = h /2;
      	*taille = *taille +1 ;
      }
@@ -22,23 +25,63 @@ int * decimaletobinaire(int h ,int * taille)
 
 //cette fonction permet de calculer l'expontation modulaire 
 // a^h mod n
-//erreur ici et nn pas dans miller rabin
+
 int squaremultiply(int a , int n ,int h)
 {
     
     int r = a;
     int taille =0;
     int * tab = decimaletobinaire(h , &taille);
-    int i;
-    for(i = taille - 1 ; i>=0 ;i--)
+
+    taille--;
+    
+    while(taille>0)
     {
     	r = (r * r) % n ;
-    	if(tab[i] == 1 )
+    	if(tab[--taille] == 1 )
     	{
     		r = (r * a ) % n ;
+    		
     	}
     }
+
+   
     return r;
+}
+
+int millerRabin(int n ,int k)
+{
+
+	int s = 0;
+    int n1 = n - 1;
+
+
+	while ((n1 % 2) == 0) 
+	{
+		n1 /= 2;
+		s++;
+	}
+
+	for (int i = 0; i < k; i++)
+	 {
+		int result = 0;
+		int a = (rand() % (n - 1)) + 1;
+       
+		int re =squaremultiply(a,n,n1);
+	
+		if (re == 1 || re == (n - 1)) continue;
+
+		for (int j = 1; j <= (s - 1); j++) 
+		{
+			re =squaremultiply(re,n,2);
+			if (re == (n - 1)) {
+				result = 1;
+				break;
+			}
+		}
+		if (result == 0) return 0;
+	}
+	return 1;
 }
 //cette fonction permet de tester si un nombre est premier ou compose :return  1 si n est premier  sinon return 0  pour composé 
 int testFermat(int n ,int k)
@@ -59,11 +102,9 @@ int testFermat(int n ,int k)
     }
     return 1;
 }
-
 int * decimaletobinairempz(mpz_t h ,int *taille )
 {
-     
-    
+    *taille=0;
     int i;
     mpz_t res;
     mpz_init(res);
@@ -71,12 +112,18 @@ int * decimaletobinairempz(mpz_t h ,int *taille )
 
     int *tab=malloc(sizeof(int));
      
-     for(i=0; mpz_cmp_ui(h ,0)>0 ;i++)
+     while(mpz_cmp_ui(h ,0)>0)
      {
 
      	mpz_mod_ui(res,h,2);
-     	res1=mpz_get_si(res);
-     	tab[i]=res1;
+     	if(mpz_cmp_ui(res,0)==0)
+     	{
+     		 tab[*taille]=0;
+     	}
+     	else
+     	{
+     		tab[*taille]=1;
+     	}
      	mpz_div_ui(h,h,2);
      	*taille = *taille + 1;
      	
@@ -87,7 +134,6 @@ int * decimaletobinairempz(mpz_t h ,int *taille )
      mpz_clear(res);
 
 }
-
 void squaremultiplympz(mpz_t a , mpz_t n ,mpz_t h , mpz_t res)
 {
     mpz_t r;
@@ -98,14 +144,14 @@ void squaremultiplympz(mpz_t a , mpz_t n ,mpz_t h , mpz_t res)
     int taille =0;
 
     int * tab = decimaletobinairempz(h , &taille);
-
+     taille--;
     int i;
-    for(i = taille - 1 ; i>=0 ;i--)
+  while(taille>0)
     {
     	mpz_mul(r,r,r);
     	mpz_mod(r,r ,n);
     	
-    	if(tab[i] == 1 )
+    	if(tab[--taille] == 1 )
     	{
     		mpz_mul(r,r,a);
     		mpz_mod(r,r,n);
@@ -182,64 +228,28 @@ int testFermatmpz(mpz_t n ,mpz_t k)
     return 1;
 }
 
-/*int millerRabin(int n ,int k)
-{
-	int n1 = n-1;
-	int s = 0;
-	while((n1 % 2) ==0)
-	{
-         n1 = n1 /2;
 
-         s = s +1;
-	}
-	int i;
-	int a;
-	int n2 = n-1;
-	int y;
-	int j;
-	//0 compose ;
-	for(i= 1 ; i<=k ;i++ )
-	{
-		
-         a = rand() % n2 + 1; 
-         y = squaremultiply(a , n , n1);
-       
-         if(y != 1 && y != -1 )
-         {
-         	
-         	for(j=1 ; j<s;j++ )
-         	{
-         		
-                  y=squaremultiply(y , n ,2);
-
-                  if(y == 1)
-                  {
-                  	return 0;
-                  }
-                  if(y == -1)
-                  {
-                  	break;
-                  }
-                 
-         	}
-         	 return 0;
-         }
-
-		
-	}
-	return 1; // 1 est premie
-}*/
 int main(int argc, char const *argv[])
 {
     mpz_t a;
     mpz_init(a);
-    mpz_set_ui(a,10);
-    mpz_t k;
-    mpz_init(k);
-    mpz_set_ui(k,10);
+    mpz_set_ui(a,11);
+    mpz_t h;
+    mpz_init(h);
+    mpz_set_ui(h,3);
+    mpz_t n;
+    mpz_init(n);
+    mpz_set_ui(n,13);
 
-   printf("%d\n",testFermatmpz(a,k) );
-   printf("%d\n",millerRabin(10,10) );
+  // printf("%d\n",testFermatmpz(a,k) );
+   printf("sq=%d\n",squaremultiply(11,13,3) );
+   mpz_t res;
+   mpz_init(res);
+   squaremultiplympz(a,n,h,res);
+   mpz_out_str(stdout,10,res);
+printf("\n\n");
+  printf("%d\n",millerRabin(13,10) );
+
 
    
   }
