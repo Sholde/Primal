@@ -220,9 +220,9 @@ int millerRabin(int n ,int k)
                   {
                   	break;
                   }
-                  return 0;
+                 
          	}
-         	
+         	 return 0;
          }
 
 		
