@@ -21,42 +21,32 @@ int * decimaletobinaire(int h ,int * taille)
      return tab;
 
 }
-
-
 //cette fonction permet de calculer l'expontation modulaire 
 // a^h mod n
 
 int squaremultiply(int a , int n ,int h)
-{
-    
+{ 
     int r = a;
     int taille =0;
     int * tab = decimaletobinaire(h , &taille);
 
     taille--;
-    
     while(taille>0)
     {
     	r = (r * r) % n ;
     	if(tab[--taille] == 1 )
     	{
     		r = (r * a ) % n ;
-    		
-    	}
+   	}
     }
-
-   
     return r;
 }
 
 int millerRabin(int n ,int k)
 {
-
-	int s = 0;
+    int s = 0;
     int n1 = n - 1;
-
-
-	while ((n1 % 2) == 0) 
+    while ((n1 % 2) == 0) 
 	{
 		n1 /= 2;
 		s++;
@@ -65,12 +55,9 @@ int millerRabin(int n ,int k)
 	for (int i = 0; i < k; i++)
 	 {
 		int result = 0;
-		int a = (rand() % (n - 1)) + 1;
-       
+		int a = (rand() % (n - 1)) + 1;   
 		int re =squaremultiply(a,n,n1);
-	
 		if (re == 1 || re == (n - 1)) continue;
-
 		for (int j = 1; j <= (s - 1); j++) 
 		{
 			re =squaremultiply(re,n,2);
@@ -138,9 +125,7 @@ void squaremultiplympz(mpz_t a , mpz_t n ,mpz_t h , mpz_t res)
 {
     mpz_t r;
     mpz_init(r);
-    mpz_set(r,a);
-
-    
+    mpz_set(r,a);  
     int taille =0;
 
     int * tab = decimaletobinairempz(h , &taille);
@@ -170,7 +155,6 @@ int testFermatmpz(mpz_t n ,mpz_t k)
 	mpz_t i;
 	mpz_init(i);
 	int result ;
-	
 	mpz_t a;
 	mpz_init(a);
 
@@ -180,8 +164,6 @@ int testFermatmpz(mpz_t n ,mpz_t k)
     time_t t; 
 
      int seed;
- 
-
     seed = (int) time(&t);
 
     gmp_randinit_default(etat);
@@ -191,10 +173,6 @@ int testFermatmpz(mpz_t n ,mpz_t k)
       mpz_t sous;
       mpz_init(sous);
       mpz_sub_ui(sous,n,1);
-
-     
-
-
     for(mpz_set_ui(i,0);mpz_cmp(i,k)<0;mpz_add_ui(i,i,1))
     {
        do
