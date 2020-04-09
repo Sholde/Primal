@@ -228,7 +228,49 @@ int testFermatmpz(mpz_t n ,mpz_t k)
     return 1;
 }
 
+int millerRabinmpz(mpz_t n ,mpz_t k)
+{
 
+     mpz_t s;
+     mpz_init(s);
+     mpz_set_ui(s,0);
+
+     mpz_t n1;
+     mpz_init(n1);
+     mpz_sub_ui(n1,n,1);
+   
+    mpz_t mod;
+    mpz_init(mod);
+    mpz_mod_ui(mod,n1,2);
+	while (mpz_cmp_ui(mod,0)==0) 
+	{
+		
+		 mpz_div_ui(n1,n1,2);
+		 mpz_add_ui(s,s,1);
+		 mpz_mod_ui(mod,n1,2);
+	}
+
+	for (int i = 0; i < k; i++)
+	 {
+		int result = 0;
+		int a = (rand() % (n - 1)) + 1;
+       
+		int re =squaremultiply(a,n,n1);
+	
+		if (re == 1 || re == (n - 1)) continue;
+
+		for (int j = 1; j <= (s - 1); j++) 
+		{
+			re =squaremultiply(re,n,2);
+			if (re == (n - 1)) {
+				result = 1;
+				break;
+			}
+		}
+		if (result == 0) return 0;
+	}
+	return 1;
+}
 int main(int argc, char const *argv[])
 {
     mpz_t a;
