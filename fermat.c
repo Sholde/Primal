@@ -186,7 +186,7 @@ int millerRabin(int n ,int k)
 {
 	int n1 = n-1;
 	int s = 0;
-	while(n1 % 2 !=0)
+	while((n1 % 2) ==0)
 	{
          n1 = n1 /2;
 
@@ -239,7 +239,7 @@ int main(int argc, char const *argv[])
     mpz_set_ui(k,10);
 
    printf("%d\n",testFermatmpz(a,k) );
-   printf("%d\n",millerRabin(13,10) );
+   printf("%d\n",millerRabin(10,10) );
 
    
   }
