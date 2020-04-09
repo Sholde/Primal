@@ -192,9 +192,7 @@ int testFermatmpz(mpz_t n ,mpz_t k)
       mpz_init(sous);
       mpz_sub_ui(sous,n,1);
 
-      mpz_t sous1;
-      mpz_init(sous1);
-      mpz_sub_ui(sous1,n,1);
+     
 
 
     for(mpz_set_ui(i,0);mpz_cmp(i,k)<0;mpz_add_ui(i,i,1))
@@ -202,18 +200,18 @@ int testFermatmpz(mpz_t n ,mpz_t k)
        do
       
       { 
-      	mpz_urandomm (a, etat, sous);
+      	mpz_urandomm (a, etat, n);
 
       }while(mpz_cmp_ui(a,0)==0);
 
-        squaremultiplympz(a,n, sous1,sm);
+        squaremultiplympz(a,n, sous,sm);
         if(mpz_cmp_ui(sm ,1)!=0 )
         {
         	  mpz_clear(i);
 			  mpz_clear(a);
 			  mpz_clear(sm);
 			  mpz_clear(sous);
-			  mpz_clear(sous1);
+			
   
         	return 0;
         }
@@ -223,59 +221,104 @@ int testFermatmpz(mpz_t n ,mpz_t k)
   mpz_clear(a);
   mpz_clear(sm);
   mpz_clear(sous);
-  mpz_clear(sous1);
+  
   
     return 1;
 }
 
-int millerRabinmpz(mpz_t n ,mpz_t k)
+int millerRabinmpz(mpz_t n, mpz_t k)
 {
-
-     mpz_t s;
-     mpz_init(s);
-     mpz_set_ui(s,0);
-
-     mpz_t n1;
-     mpz_init(n1);
-     mpz_sub_ui(n1,n,1);
-   
-    mpz_t mod;
-    mpz_init(mod);
-    mpz_mod_ui(mod,n1,2);
-	while (mpz_cmp_ui(mod,0)==0) 
-	{
-		
-		 mpz_div_ui(n1,n1,2);
-		 mpz_add_ui(s,s,1);
-		 mpz_mod_ui(mod,n1,2);
-	}
-
-	for (int i = 0; i < k; i++)
+	mpz_t mod;
+	printf("k=");
+  mpz_out_str(stdout,10,k);
+  printf("\n\n");
+	mpz_init(mod);
+	mpz_set_ui(mod,0);
+	mpz_mod_ui(mod,n,2);
+	if (mpz_cmp_ui(n, 2)==0 || mpz_cmp_ui(n ,3)==0)
 	 {
-		int result = 0;
-		int a = (rand() % (n - 1)) + 1;
-       
-		int re =squaremultiply(a,n,n1);
-	
-		if (re == 1 || re == (n - 1)) continue;
+	 	
+		return 1;
+	} 
+	else
+	 if (mpz_cmp_ui(mod,0) ==0)
+	  {
+	  
+		return 0;
+	}
+    mpz_t nbr;
+    mpz_init(nbr);
+    mpz_set_ui(nbr,0);
+    mpz_t n1;
+    mpz_init(n1);
+    mpz_sub_ui(n1,n,1);
+     mpz_mod_ui(mod,n1,2);
+	while (mpz_cmp_ui(mod,0)== 0) 
+	{
+		mpz_div_ui(n1,n1,2);
+		mpz_add_ui(nbr,nbr,1);	
+		 mpz_mod_ui(mod,n1,2);
 
-		for (int j = 1; j <= (s - 1); j++) 
+	}
+    mpz_t i;
+    mpz_init(i);
+    time_t t;
+    int seed;
+    seed = (int) time(&t); 
+    gmp_randinit_default(etat);
+    gmp_randseed_ui(etat, seed);
+    mpz_t sous;
+    mpz_init(sous);
+    mpz_sub_ui(sous,n,1);
+    mpz_t nbr1;
+    mpz_init(nbr1);
+    mpz_sub_ui(nbr1,nbr,1);
+    mpz_t j;
+    mpz_init(j);
+    mpz_t nr;
+    mpz_init(nr);
+	for (mpz_set_ui(i,0); mpz_cmp(i,k)<0; mpz_add_ui(i,i,1)) 
+	{
+		mpz_t result;
+		mpz_init(result);
+		mpz_set_ui(result,0);
+		mpz_t a;
+		mpz_init(a);
+      do
 		{
-			re =squaremultiply(re,n,2);
-			if (re == (n - 1)) {
-				result = 1;
+
+			mpz_urandomm(a,etat,n);
+
+		}while(mpz_cmp_ui(a,0)==0);
+   
+        mpz_t re;
+        mpz_init(re);
+        mpz_set(nr,n1);
+        squaremultiplympz(a,n,nr,re);
+        if(mpz_cmp_ui(re,1)==0 || mpz_cmp(re,sous)==0) continue;
+       
+		for (mpz_set_ui(j, 1);mpz_cmp(j,nbr1)<=0 ;mpz_add_ui(j,j,1)) 
+		{
+			mpz_t deux;
+            mpz_init(deux);
+            mpz_set_ui(deux,2);
+			squaremultiplympz(re,n,deux,re);
+			if(mpz_cmp(re,sous)==0)
+		     {
+				mpz_set_ui(result,1);
 				break;
 			}
 		}
-		if (result == 0) return 0;
+		if (mpz_cmp_ui(result, 0)==0) return 0;
 	}
 	return 1;
 }
+
 int main(int argc, char const *argv[])
 {
     mpz_t a;
     mpz_init(a);
-    mpz_set_ui(a,11);
+    mpz_set_ui(a,17);
     mpz_t h;
     mpz_init(h);
     mpz_set_ui(h,3);
@@ -287,11 +330,12 @@ int main(int argc, char const *argv[])
    printf("sq=%d\n",squaremultiply(11,13,3) );
    mpz_t res;
    mpz_init(res);
-   squaremultiplympz(a,n,h,res);
+ //  squaremultiplympz(a,n,h,res);
    mpz_out_str(stdout,10,res);
    printf("\n\n");
    printf("%d\n",millerRabin(13,10) );
    printf("fermat=%d\n",testFermat(20,10) );
+   printf("miller =%d\n",millerRabinmpz(a,h) );
 
 
    
