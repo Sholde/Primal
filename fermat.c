@@ -181,7 +181,7 @@ int testFermatmpz(mpz_t n ,mpz_t k)
   
     return 1;
 }
-//une erreur je v l corriger d abord 
+
 int millerRabin(int n ,int k)
 {
 	int n1 = n-1;
@@ -203,11 +203,15 @@ int millerRabin(int n ,int k)
 		
          a = rand() % n2 + 1; 
          y = squaremultiply(a , n , n1);
+       
          if(y != 1 && y != -1 )
          {
+         	
          	for(j=1 ; j<s;j++ )
          	{
+         		
                   y=squaremultiply(y , n ,2);
+
                   if(y == 1)
                   {
                   	return 0;
@@ -216,8 +220,9 @@ int millerRabin(int n ,int k)
                   {
                   	break;
                   }
+                  return 0;
          	}
-         	return 0;
+         	
          }
 
 		
@@ -234,7 +239,7 @@ int main(int argc, char const *argv[])
     mpz_set_ui(k,10);
 
    printf("%d\n",testFermatmpz(a,k) );
-   printf("%d\n",millerRabin(8,10) );
+   printf("%d\n",millerRabin(13,10) );
 
    
   }
