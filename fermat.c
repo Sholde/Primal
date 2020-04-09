@@ -22,7 +22,7 @@ int * decimaletobinaire(int h ,int * taille)
 
 //cette fonction permet de calculer l'expontation modulaire 
 // a^h mod n
-
+//erreur ici et nn pas dans miller rabin
 int squaremultiply(int a , int n ,int h)
 {
     
