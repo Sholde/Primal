@@ -196,7 +196,6 @@ int millerRabin(int n ,int k)
 	int a;
 	int n2 = n-1;
 	int y;
-	int result;
 	int j;
 	//0 compose ;
 	for(i= 1 ; i<=k ;i++ )
