@@ -181,7 +181,7 @@ int testFermatmpz(mpz_t n ,mpz_t k)
   
     return 1;
 }
-
+//une erreur je v l corriger d abord 
 int millerRabin(int n ,int k)
 {
 	int n1 = n-1;
