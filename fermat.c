@@ -247,8 +247,9 @@ int main(int argc, char const *argv[])
    mpz_init(res);
    squaremultiplympz(a,n,h,res);
    mpz_out_str(stdout,10,res);
-printf("\n\n");
-  printf("%d\n",millerRabin(13,10) );
+   printf("\n\n");
+   printf("%d\n",millerRabin(13,10) );
+   printf("fermat=%d\n",testFermat(20,10) );
 
 
    
