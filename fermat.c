@@ -182,7 +182,7 @@ int testFermatmpz(mpz_t n ,mpz_t k)
     return 1;
 }
 
-int millerRabin(int n ,int k)
+/*int millerRabin(int n ,int k)
 {
 	int n1 = n-1;
 	int s = 0;
@@ -228,7 +228,7 @@ int millerRabin(int n ,int k)
 		
 	}
 	return 1; // 1 est premie
-}
+}*/
 int main(int argc, char const *argv[])
 {
     mpz_t a;
