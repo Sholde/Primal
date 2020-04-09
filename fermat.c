@@ -3,40 +3,6 @@
 #include <string.h>
 #include <gmp.h>
 #include <time.h>
-int * decimaletobinaire(int h ,int * taille)
-{ 
-    int *tab= malloc(sizeof(int ));
-     *taille=0;
-    while(h>0)
-     {
-     	if(h %2 ==0 )
-           	tab[*taille]= 0;
-           else tab[*taille]=1;
-     	h = h /2;
-     	*taille = *taille +1 ;
-     } 
-     return tab;
-}
-//cette fonction permet de calculer l'expontation modulaire 
-// a^h mod n
-
-int squaremultiply(int a , int n ,int h)
-{ 
-    int r = a;
-    int taille =0;
-    int * tab = decimaletobinaire(h , &taille);
-    taille--;
-    while(taille>0)
-    {
-    	r = (r * r) % n ;
-    	if(tab[--taille] == 1 )
-    	{
-    	r = (r * a ) % n ;
-   	}
-    }
-    return r;
-}
-//cette fonction permet de tester si un nombre est premier ou compose :return  1 si n est premier  sinon return 0  pour composé 
 int * decimaletobinairempz(mpz_t h ,int *taille )
 {
     *taille=0;
@@ -202,7 +168,6 @@ int millerRabinmpz(mpz_t n, mpz_t k)
 	}
 	return 1;
 }
-
 int main(int argc, char const *argv[])
 {
     mpz_t a;
@@ -214,18 +179,7 @@ int main(int argc, char const *argv[])
     mpz_t n;
     mpz_init(n);
     mpz_set_ui(n,13);
-
-  // printf("%d\n",testFermatmpz(a,k) );
-   printf("sq=%d\n",squaremultiply(11,13,3) );
    mpz_t res;
    mpz_init(res);
- //  squaremultiplympz(a,n,h,res);
-   mpz_out_str(stdout,10,res);
-   printf("\n\n");
-   printf("%d\n",millerRabin(13,10) );
-   printf("fermat=%d\n",testFermat(20,10) );
-   printf("miller =%d\n",millerRabinmpz(a,h) );
-
-
-   
+   printf("miller =%d\n",millerRabinmpz(a,h) );  
   }
