@@ -15,12 +15,10 @@ int * decimaletobinairempz(mpz_t h ,int *taille )
      {
      	mpz_mod_ui(res,h,2);
      	if(mpz_cmp_ui(res,0)==0)
-     	{
-     		 tab[*taille]=0;
+     	{ tab[*taille]=0;
      	}
      	else
-     	{
-     		tab[*taille]=1;
+     	{   tab[*taille]=1;
      	}
      	mpz_div_ui(h,h,2);
      	*taille = *taille + 1;  	
@@ -49,7 +47,6 @@ void squaremultiplympz(mpz_t a , mpz_t n ,mpz_t h , mpz_t res)
     }
   mpz_set(res,r);
   mpz_clear(r);
-
 }
 gmp_randstate_t etat;
 int testFermatmpz(mpz_t n ,mpz_t k)
@@ -71,10 +68,8 @@ int testFermatmpz(mpz_t n ,mpz_t k)
     mpz_sub_ui(sous,n,1);
     for(mpz_set_ui(i,0);mpz_cmp(i,k)<0;mpz_add_ui(i,i,1))
     {
-       do
-      { 
+       do { 
       	mpz_urandomm (a, etat, n);
-
       }while(mpz_cmp_ui(a,0)==0);
         squaremultiplympz(a,n, sous,sm);
         if(mpz_cmp_ui(sm ,1)!=0 )
@@ -83,16 +78,13 @@ int testFermatmpz(mpz_t n ,mpz_t k)
 	     mpz_clear(a);
 	      mpz_clear(sm);
 	      mpz_clear(sous);
-        	return 0;
-        }
-    }
+        	return 0;} }
   mpz_clear(i);
   mpz_clear(a);
   mpz_clear(sm);
   mpz_clear(sous); 
-    return 1;
+   return 1;
 }
-
 int millerRabinmpz(mpz_t n, mpz_t k)
 {
 	mpz_t mod;
@@ -102,11 +94,9 @@ int millerRabinmpz(mpz_t n, mpz_t k)
 	if (mpz_cmp_ui(n, 2)==0 || mpz_cmp_ui(n ,3)==0)
 	 {
 	 return 1;
-	} 
-	else
+	} else
 	 if (mpz_cmp_ui(mod,0) ==0)
-	  {
-	   return 0;
+	  { return 0;
 	}
     mpz_t nbr;
     mpz_init(nbr);
@@ -145,7 +135,7 @@ int millerRabinmpz(mpz_t n, mpz_t k)
 		mpz_set_ui(result,0);
 		mpz_t a;
 		mpz_init(a);
-      do{mpz_urandomm(a,etat,n);
+      do{     mpz_urandomm(a,etat,n);
 		}while(mpz_cmp_ui(a,0)==0);
    
         mpz_t re;
