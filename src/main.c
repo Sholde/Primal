@@ -1,21 +1,18 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include <gmp.h>
-
-int popcount(int n) {
-    int pc = 0;
-    for(int i = 0; i < 32; i++) {
-        pc += (n & 1);
-        n >>= 1;
-    }
-    return pc;
-}
 
 void nb_bit(mpz_t nb, mpz_t h) {
     mpz_set_ui(nb, 1);
-    while( mpz_div_ui(h, h, 2) && mpz_cmp_ui(h, 0) > 0 ) {
+
+    mpz_t h2;
+    mpz_init(h2);
+    mpz_set(h2, h);
+    while( mpz_div_ui(h2, h2, 2) && mpz_cmp_ui(h2, 0) > 0 ) {
         mpz_add_ui(nb, nb, 1);
     }
+    mpz_clear(h2);
 }
 
 void pos(mpz_t test, mpz_t i) {
@@ -39,8 +36,7 @@ void square_and_multiply(mpz_t res, mpz_t a, mpz_t n, mpz_t h) {
 
     mpz_t i;
     mpz_init(i);
-    mpz_set(i, nb);
-    mpz_sub_ui(i, i, 1);
+    mpz_sub_ui(i, nb, 1);
 
     mpz_t test;
     mpz_init(test);
@@ -143,6 +139,14 @@ int miller_rabbin(mpz_t n, mpz_t k) {
     mpz_t i;
     mpz_init(i);
 
+    time_t ti; 
+    int seed;
+    seed = time(&ti);
+    srand(seed);
+    gmp_randstate_t etat;
+    gmp_randinit_default(etat);
+    gmp_randseed_ui(etat, rand()); 
+
     mpz_t a;
     mpz_init(a);
 
@@ -156,29 +160,43 @@ int miller_rabbin(mpz_t n, mpz_t k) {
     mpz_init(deux);
     mpz_set_ui(deux, 2);
 
+    mpz_t n_1;
+    mpz_init(n_1);
+    mpz_sub_ui(n_1, n, 1);
+
+    mpz_t n_2;
+    mpz_init(n_2);
+    mpz_sub_ui(n_2, n, 2);
+
     int bk = 0;
 
     for(mpz_set_ui(i, 0); mpz_cmp(i, k) < 0; mpz_add_ui(i, i, 1)) {
-        mpz_set(a, i);
-        square_and_multiply(y, a, t, n);
-        if( mpz_cmp_ui(y, 1) != 0 || mpz_cmp_ui(y, -1) != 0) {
-            for(mpz_set_ui(j, 1); mpz_cmp(j, s) < -1; mpz_add_ui(j, j, 1)) {
-                square_and_multiply(y, y, deux, n);
+
+        mpz_urandomm(a, etat, n_2);
+        mpz_add_ui(a, a, 1);
+        square_and_multiply(y, a, n, t);
+
+        if( mpz_cmp_ui(y, 1) != 0 && mpz_cmp(y, n_1) != 0 ) {
+            for(mpz_set_ui(j, 0); mpz_cmp(j, s) < 0; mpz_add_ui(j, j, 1)) {
+                mpz_mul(y, y, y);
+                mpz_mod(y, y ,n);
                 if( mpz_cmp_ui(y, 1) == 0 ) {
                     return 0;
                 }
-                if( mpz_cmp_ui(y, -1) == 0 ) {
+                if( mpz_cmp(y, n_1) == 0 ) {
                     bk = 1;
                     break;
                 }
             }
-            if( !bk ) {
+            if( bk == 0 ) {
                 return 0;
             }
             bk = 0;
         }
     }
 
+    mpz_clear(n_1);
+    mpz_clear(n_2);
     mpz_clear(s);
     mpz_clear(t);
     mpz_clear(i);
