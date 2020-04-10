@@ -234,7 +234,7 @@ int main(int argc, char const *argv[])
 			   {
                    printf(" Le nombre " );
                    mpz_out_str(stdout,10,n);
-                   printf("est non premier \n");
+                   printf(" est non premier \n");
 			   }
 			   else
 			   {
@@ -242,7 +242,7 @@ int main(int argc, char const *argv[])
 			   	{
                   printf(" Le nombre " );
                    mpz_out_str(stdout,10,n);
-                   printf("est  premier \n");
+                   printf(" est  premier \n");
 			   	}
 
 			   }
@@ -266,7 +266,7 @@ int main(int argc, char const *argv[])
 			   	{
                   printf(" Le nombre " );
                    mpz_out_str(stdout,10,n);
-                   printf("est  premier \n");
+                   printf(" est  premier \n");
 			   	}
 
 			   }
