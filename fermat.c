@@ -57,7 +57,7 @@ int testFermatmpz(mpz_t n ,mpz_t k)
 	}
 
     mpz_t i;
-    mpz_init(i);
+    mpz_init(i); 
     int result ;
     mpz_t a;
     mpz_init(a);
@@ -83,10 +83,19 @@ int testFermatmpz(mpz_t n ,mpz_t k)
         squaremultiplympz(a,n, sauv,sm);
         if(mpz_cmp_ui(sm ,1)!=0 )
         {
-        	
+		    mpz_clear(i);
+		    mpz_clear(a);
+		    mpz_clear(sm);
+		    mpz_clear(sous);
+		    mpz_clear(sauv);
            return 0;
         } 
     }
+    mpz_clear(i);
+    mpz_clear(a);
+    mpz_clear(sm);
+    mpz_clear(sous);
+    mpz_clear(sauv);
    return 1;
 }
 int millerRabinmpz(mpz_t n, mpz_t k)
@@ -97,10 +106,13 @@ int millerRabinmpz(mpz_t n, mpz_t k)
 	mpz_mod_ui(mod,n,2);
 	if (mpz_cmp_ui(n, 2)==0 || mpz_cmp_ui(n ,3)==0)
 	 {
+	 mpz_clear(mod);
 	 return 1;
 	} else
 	 if (mpz_cmp_ui(mod,0) ==0)
-	  { return 0;
+	  { 
+	  	mpz_clear(mod);
+	  	return 0;
 	}
     mpz_t nbr;
     mpz_init(nbr);
@@ -149,7 +161,7 @@ int millerRabinmpz(mpz_t n, mpz_t k)
         if(mpz_cmp_ui(re,1)==0 || mpz_cmp(re,sous)==0) continue;
 	for (mpz_set_ui(j, 1);mpz_cmp(j,nbr1)<=0 ;mpz_add_ui(j,j,1)) 
 		{
-	    mpz_t deux;
+	        mpz_t deux;
             mpz_init(deux);
             mpz_set_ui(deux,2);
 	    squaremultiplympz(re,n,deux,re);
@@ -158,23 +170,113 @@ int millerRabinmpz(mpz_t n, mpz_t k)
 		    mpz_set_ui(result,1);
 		     break;
 	}}
-		if (mpz_cmp_ui(result, 0)==0) return 0;
+		if (mpz_cmp_ui(result, 0)==0) 
+			{
+				mpz_clear(mod);
+				mpz_clear(nbr);
+				mpz_clear(n1);
+				mpz_clear(i);
+				mpz_clear(sous);
+				mpz_clear(nbr1);
+				mpz_clear(j);
+				mpz_clear(nr);
+				mpz_clear(a);
+				mpz_clear(re);
+				return 0;
+			}
 	}
+	mpz_clear(mod);
+	mpz_clear(nbr);
+	mpz_clear(n1);
+	mpz_clear(i);
+	mpz_clear(sous);
+	mpz_clear(nbr1);
+	mpz_clear(j);
+	mpz_clear(nr);
+
 	return 1;
+}
+void Menu()
+{
+	printf("*************************DM CRYPTO***********************\n");
+	printf("Veuillez choisir une option :\n");
+	printf("\t 1- Test de Fermat \n");
+	printf("\t 2- Test de Miller Rbin \n");
+	printf("\t 3-Quitter \n");
+
 }
 int main(int argc, char const *argv[])
 {
-    mpz_t a;
-    mpz_init(a);
-    mpz_set_ui(a,4);
-    mpz_t h;
-    mpz_init(h);
-    mpz_set_ui(h,3);
     mpz_t n;
     mpz_init(n);
-    mpz_set_ui(n,13);
-   mpz_t res;
+   
+    mpz_t k;
+    mpz_init(k);
+    mpz_t res;
    mpz_init(res);
-  printf("fermat=%d\n",testFermatmpz(a,h) );
-   printf("miller =%d\n",millerRabinmpz(a,h) );  
+   Menu();
+   int choix;
+   do
+
+  {
+   printf("Votre Choix SVP :\t");
+    scanf("%d",&choix);
+    switch(choix)
+    {
+    	 case 1:
+			   printf("Choisissez le nombre à tester : \t");
+			   mpz_inp_str(n, 0, 10);
+			   printf("\n");
+			   printf("Choisissez le nombre d'itération : \t");
+			   mpz_inp_str(k, 0, 10);
+			   int f =testFermatmpz(n,k);
+			   if(f==0)
+			   {
+                   printf(" Le nombre " );
+                   mpz_out_str(stdout,10,n);
+                   printf("est non premier \n");
+			   }
+			   else
+			   {
+			   	if(f==1)
+			   	{
+                  printf(" Le nombre " );
+                   mpz_out_str(stdout,10,n);
+                   printf("est  premier \n");
+			   	}
+
+			   }
+   break;
+   case 2:
+			   printf("Choisissez le nombre à tester : \t");
+			   mpz_inp_str(n, 0, 10);
+			   printf("\n");
+			   printf("Choisissez le nombre d'itération : \t");
+			   mpz_inp_str(k, 0, 10);
+			   int m =millerRabinmpz(n,k);
+			   if(m==0)
+			   {
+                   printf(" Le nombre " );
+                   mpz_out_str(stdout,10,n);
+                   printf(" est non premier \n");
+			   }
+			   else
+			   {
+			   	if(m==1)
+			   	{
+                  printf(" Le nombre " );
+                   mpz_out_str(stdout,10,n);
+                   printf("est  premier \n");
+			   	}
+
+			   }
+   break;
+
+   case 3:
+   break;
+
+    }
+ 
+}while(choix !=3);
+
   }
