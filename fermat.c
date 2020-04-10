@@ -3,6 +3,8 @@
 #include <string.h>
 #include <gmp.h>
 #include <time.h>
+#include <curses.h>
+#include <unistd.h>
 gmp_randstate_t etat;
 int * decimaletobinairempz(mpz_t h ,int *taille )
 {
@@ -200,13 +202,36 @@ void Menu()
 {
 	printf("*************************DM CRYPTO***********************\n");
 	printf("Veuillez choisir une option :\n");
-	printf("\t 1- Test de Fermat \n");
-	printf("\t 2- Test de Miller Rbin \n");
-	printf("\t 3-Quitter \n");
-
+	printf("\t 1-Entrer directement Le nombre \n");
+	printf("\t 2-Quitter\n");
+	
 }
+char *str="Bienvenue dans notre  programme Lynda & Nicolas \n";
 int main(int argc, char const *argv[])
 {
+
+	 system("clear");
+	 printf ("\033[32m");
+	 int f=0;
+    printf("\n\n\t\t\t");
+    int c=1;
+    while(str[f]!='\0')
+    {
+    	printf ("%c", str[f]);
+        fflush(stdout);
+        usleep(100000);
+        f++;
+       
+    }
+
+printf("\n");
+printf("\t               .-~~~~~~~~~-._       _.-~~~~~~~~~-.                  \n ");
+printf("\t           __.'              ~.   .~              `.__               \n ");
+printf("\t          .'//                  ./                  \\`.                 \n ");
+printf("\t       .'//                     |                     \\`.\n ");
+printf("\t   .'//.-'                 `-.  |  .-'                 ''-.\\`.  \n ");
+printf("\t  .'//______.============-..    | /   ..-============.______\\`.\n ");
+printf("\t.'______________________________|/______________________________`.\n \n \n ");
     mpz_t n;
     mpz_init(n);
    
@@ -214,16 +239,27 @@ int main(int argc, char const *argv[])
     mpz_init(k);
     mpz_t res;
    mpz_init(res);
-   Menu();
+  
    int choix;
+   int choix1;
    do
 
   {
+  	 Menu();
    printf("Votre Choix SVP :\t");
     scanf("%d",&choix);
+
     switch(choix)
     {
-    	 case 1:
+
+    	case 1:
+    printf("\t 1- Test de Fermat \n");
+	printf("\t 2- Test de Miller Rbin \n");
+	printf("\t 3-Quitter \n");
+    printf("Votre Choix SVP :\t");
+    scanf("%d",&choix1);
+       if(choix1 ==1){
+
 			   printf("Choisissez le nombre à tester : \t");
 			   mpz_inp_str(n, 0, 10);
 			   printf("\n");
@@ -246,8 +282,8 @@ int main(int argc, char const *argv[])
 			   	}
 
 			   }
-   break;
-   case 2:
+   }
+   if(choix1==2){
 			   printf("Choisissez le nombre à tester : \t");
 			   mpz_inp_str(n, 0, 10);
 			   printf("\n");
@@ -270,13 +306,20 @@ int main(int argc, char const *argv[])
 			   	}
 
 			   }
-   break;
+  }
 
-   case 3:
-   break;
+  if(choix1==3) 
+                break;
+            break;
+            case 2:
+            break;
+           
+
 
     }
+
  
-}while(choix !=3);
+}while(choix !=2);
 
   }
+
