@@ -6,15 +6,17 @@
 #include "miller_rabbin.h"
 
 void nb_bit(mpz_t nb, mpz_t h) {
-    mpz_set_ui(nb, 1);
+    mpz_set_ui(nb, 0);
 
     mpz_t h2;
     mpz_init(h2);
     mpz_set(h2, h);
-
-    while( mpz_div_ui(h2, h2, 2) && mpz_cmp_ui(h2, 0) > 0 ) {
+    
+    do {
+        mpz_div_ui(h2, h2, 2);
         mpz_add_ui(nb, nb, 1);
-    }
+    } while( mpz_cmp_ui(h2, 0) > 0 );
+    mpz_sub_ui(nb, nb, 1);
 
     mpz_clear(h2);
 }
@@ -133,6 +135,8 @@ int miller_rabbin(mpz_t n, mpz_t k) {
     mpz_t t;
     mpz_init(t);
     
+    decompose(n, s, t);
+    
     // test
     mpz_t i;
     mpz_init(i);
@@ -169,16 +173,15 @@ int miller_rabbin(mpz_t n, mpz_t k) {
     int bk = 0;
 
     for(mpz_set_ui(i, 0); mpz_cmp(i, k) < 0; mpz_add_ui(i, i, 1)) {
-
-        mpz_urandomm(a, etat, n_4);
-        mpz_add_ui(a, a, 2);
+        mpz_add_ui(a, i, 2);
+        //~ mpz_urandomm(a, etat, n_4);
+        //~ mpz_add_ui(a, a, 2);
         square_and_multiply(y, a, n, t);
-        mpz_out_str(0, 10, y);
 
         if( mpz_cmp_ui(y, 1) != 0 && mpz_cmp(y, n_1) != 0 ) {
             for(mpz_set_ui(j, 0); mpz_cmp(j, s) < 0; mpz_add_ui(j, j, 1)) {
                 mpz_mul(y, y, y);
-                mpz_mod(y, y ,n);
+                mpz_mod(y, y, n);
                 if( mpz_cmp_ui(y, 1) == 0 ) {
                     return 0;
                 }
