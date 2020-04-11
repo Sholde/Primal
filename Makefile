@@ -2,6 +2,8 @@
 
 CC = gcc
 
+OPTI = -Ofast
+
 EXEC = app.exe
 ARCHIVE = BOUTON_Nicolas-HADJAB_LYNDA-DEDARALLY_Taariq
 TAR = tar.gz
@@ -23,11 +25,11 @@ GMP = -lgmp
 all: config compil
 
 compil: $(OBJ)
-	@ $(CC) -o $(BINDIR)/$(EXEC) $(OBJ) $(GMP)
+	@ $(CC) -o $(BINDIR)/$(EXEC) $(OBJ) $(GMP) $(OPTI)
 	@ echo "Linking complete!"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(DEPS)
-	@ $(CC) -c -o $@ $< $(FLAG) $(GMP)
+	@ $(CC) -c -o $@ $< $(FLAG) $(GMP) $(OPTI)
 	@ echo "Compiled "$@" successfully!"
 
 run:
