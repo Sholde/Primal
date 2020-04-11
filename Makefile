@@ -38,9 +38,9 @@ run:
 
 clean:
 	@ if [ $(ARCHIVE).$(TAR) ]; then rm -f $(ARCHIVE).$(TAR); echo "Archive removed!"; fi
-	@ rm -f $(OBJDIR)/*
+	@ rm -rf $(OBJDIR)/
 	@ echo "Object files removed!"
-	@ rm -f $(BINDIR)/*
+	@ rm -rf $(BINDIR)/
 	@ echo "Executable removed!"
 	
 package: clean

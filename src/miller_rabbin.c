@@ -173,15 +173,14 @@ int miller_rabbin(mpz_t n, mpz_t k) {
     int bk = 0;
 
     for(mpz_set_ui(i, 0); mpz_cmp(i, k) < 0; mpz_add_ui(i, i, 1)) {
-        mpz_add_ui(a, i, 2);
-        //~ mpz_urandomm(a, etat, n_4);
-        //~ mpz_add_ui(a, a, 2);
+        
+        mpz_urandomm(a, etat, n_4);
+        mpz_add_ui(a, a, 2);
         square_and_multiply(y, a, n, t);
 
         if( mpz_cmp_ui(y, 1) != 0 && mpz_cmp(y, n_1) != 0 ) {
             for(mpz_set_ui(j, 0); mpz_cmp(j, s) < 0; mpz_add_ui(j, j, 1)) {
-                mpz_mul(y, y, y);
-                mpz_mod(y, y, n);
+                square_and_multiply(y, y, n, deux);
                 if( mpz_cmp_ui(y, 1) == 0 ) {
                     return 0;
                 }
