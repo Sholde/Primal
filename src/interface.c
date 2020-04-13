@@ -5,6 +5,23 @@
 
 #include "miller_rabbin.h"
 
+#define TAILLE_MAX 1024 // Tableau de taille 1024
+
+char* lire(char * chemin) {
+    FILE* fichier = NULL;
+    char *chaine = malloc(sizeof(char) * TAILLE_MAX);
+    fichier = fopen(chemin, "r");
+    if (fichier != NULL) {
+        fgets(chaine, TAILLE_MAX, fichier); // On lit maximum TAILLE_MAX caractères du fichier, on stocke le tout dans "chaine"
+        fclose(fichier);
+    }
+    else {
+ 	printf("Erreur d'ouverture du fichier\n");
+	exit(1);
+    }
+    return chaine;
+}
+
 void menu(void) {
     printf("*************************DM CRYPTO***********************\n");
     printf("Veuillez choisir une option :\n");
@@ -112,14 +129,13 @@ void interface(void) {
 	    }
 	    else if( tmp == 2 ) {
 		system("clear");
-		FILE* f;
-		f = fopen("nombre.txt", "r");
+		char *chemin = "nombre.txt";
+		char *str = lire(chemin);
+		
 		mpz_t n;
 		mpz_init(n);
-		gmp_fscanf(f, "%Z", n);
-		fclose(f);
-
-		printf("\n");
+		mpz_set_str(n, str, 10);
+		free(str);
 
 		mpz_t k;
 		mpz_init(k);
