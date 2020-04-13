@@ -448,7 +448,7 @@ printf ("\033[34m");
             case 3:
             break;
     }
-}while(choix !=2);
+}while(choix !=3);
 
   }
 
