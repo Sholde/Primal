@@ -256,7 +256,7 @@ void Menu()
 {
 	printf("*************************DM CRYPTO***********************\n");
 	printf("Veuillez choisir une option :\n");
-	printf("\t 1-Exécuter un fichier  \n");
+	printf("\t 1-Exécuter un nombre d'un fichier  \n");
 	printf("\t 2-Entrer le nombre directement \n");
 	printf("\t 2-Quitter\n");
 	
