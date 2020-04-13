@@ -228,14 +228,44 @@ int millerRabinmpz(mpz_t n, mpz_t k)
 
 	return 1;//premier 
 }
+#define TAILLE_MAX 1024 // Tableau de taille 1024
+//mpz_set_str
+char* lire(char * chemin)
+{
+	 FILE* fichier = NULL;
+
+    char *chaine; 
+    chaine=malloc(TAILLE_MAX* sizeof(char));
+ 
+    fichier = fopen(chemin, "r");
+ 
+    if (fichier != NULL)
+    {
+    
+        fgets(chaine, TAILLE_MAX, fichier); // On lit maximum TAILLE_MAX caractères du fichier, on stocke le tout dans "chaine"
+        fclose(fichier);
+    }
+ else
+ {
+ 	printf("Erreur d'ouverture du fichier\n");
+ }
+    return chaine;
+}
 //cette procedure permet de faire un menu  pour donner un choix à l'utilisateur 
 void Menu()
 {
 	printf("*************************DM CRYPTO***********************\n");
 	printf("Veuillez choisir une option :\n");
-	printf("\t 1-Exécuter les fonction du Dm  \n");
+	printf("\t 1-Exécuter un fichier  \n");
+	printf("\t 2-Entrer le nombre directement \n");
 	printf("\t 2-Quitter\n");
 	
+}
+void Menu1()
+{
+	 printf("\t 1- Test de Fermat \n");
+	printf("\t 2- Test de Miller Rbin \n");
+	printf("\t 3-Quitter \n");
 }
 char *str="Bienvenue dans notre  programme Lynda & Nicolas  :) \n";
 int main(int argc, char const *argv[])
@@ -274,6 +304,8 @@ printf("\t.'______________________________|/______________________________`.\n \
   
    int choix;
    int choix1;
+   char * nombre;
+	char * chemin;
    do
 
   {
@@ -283,14 +315,83 @@ printf("\t.'______________________________|/______________________________`.\n \
 
     switch(choix)
     {
-
     	case 1:
+    
+	chemin=malloc(sizeof(char));
+	printf("Donner le chemin du Votre fichier \t");
+    scanf("%s",chemin);
+	nombre=lire(chemin);
+	mpz_t nbr;
+	mpz_init(nbr);
+    mpz_set_str(nbr,nombre,10);
+   
+  do{ 
+  	printf("***********************************************\n");
+  	Menu1();
+  	printf("*************************************************\n");
+  	printf("Votre Choix SVP :\t");
+    scanf("%d",&choix1);
+    if(choix1==1)
+    {
+              printf("Choisissez le nombre d'itération : \t");
+			   mpz_inp_str(k, 0, 10);
+			   int f =testFermatmpz(nbr,k);
+			   if(f==0)
+			   {
+                   printf(" Le nombre :" );
+                   mpz_out_str(stdout,10,nbr);
+                   printf(" est non premier \n");
+			   }
+			   else
+			   {
+			   	if(f==1)
+			   	{
+                  printf(" Le nombre :" );
+                   mpz_out_str(stdout,10,nbr); 
+                   printf(" est  premier \n");
+			   	}
+			   }
+    }
+    else
+    {
+    	if(choix1==2)
+    	{
+               printf("Choisissez le nombre d'itération : \t");
+			   mpz_inp_str(k, 0, 10);
+			   int m =millerRabinmpz(nbr,k);
+			   if(m==0)
+			   {
+                   printf(" Le nombre  :" );
+                   mpz_out_str(stdout,10,nbr);
+                   printf(" est non premier \n");
+			   }
+			   else
+			   {
+			   	if(m==1)
+			   	{
+                  printf(" Le nombre " );
+                   mpz_out_str(stdout,10,nbr);
+                   printf(" est  premier \n");
+			   	}
+			   }
+    	}
+    	else
+    	{
+    		if(choix1==3)
+    		{
+    			break;
+    		}
+    	}
+    }
+ }while(choix1!=3) ;
+
+    	break;
+
+    	case 2:
     	do
      {
   printf("\n\n");
-   printf("\t 1- Test de Fermat \n");
-	printf("\t 2- Test de Miller Rbin \n");
-	printf("\t 3-Quitter \n");
+  Menu1();
     printf("Votre Choix SVP :\t");
     scanf("%d",&choix1);
        if(choix1 ==1){
@@ -346,7 +447,7 @@ printf("\t.'______________________________|/______________________________`.\n \
         }while(choix1!=3);
 
             break;
-            case 2:
+            case 3:
             break;
     }
 }while(choix !=2);
