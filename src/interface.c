@@ -5,6 +5,23 @@
 
 #include "miller_rabbin.h"
 
+#define TAILLE_MAX 1024 // Tableau de taille 1024
+
+char *lire(char *chemin) {
+    FILE* fichier = NULL;
+    char *chaine = malloc(sizeof(char) * TAILLE_MAX);
+    fichier = fopen(chemin, "r");
+    if (fichier != NULL) {
+        fgets(chaine, TAILLE_MAX, fichier); // On lit maximum TAILLE_MAX caractères du fichier, on stocke le tout dans "chaine"
+        fclose(fichier);
+    }
+    else {
+ 	printf("Erreur d'ouverture du fichier\n");
+	exit(1);
+    }
+    return chaine;
+}
+
 void menu(void) {
     printf("*************************DM CRYPTO***********************\n");
     printf("Veuillez choisir une option :\n");
@@ -76,7 +93,7 @@ void interface(void) {
 
 		mpz_t k;
 		mpz_init(k);
-		printf("Choisissez le nombre d'itération : \n");
+		printf("Choisissez le nombre d'itération : ");
 		mpz_inp_str(k, 0, 10);
 
 		printf("\n");
@@ -101,7 +118,54 @@ void interface(void) {
 	}
 	else if( tmp == 2 ) {
 	    system("clear");
-	    printf("Cette fonctionalité n'est pas encore implémenté\n\n");
+	    test_primal();
+	    printf("\nFaites votre choix : ");
+	    scanf("%d", &tmp);
+	    printf("\n\n");
+	    
+	    if( tmp == 1 ) {
+		system("clear");
+		printf("Nous somme désolé mais ce n'est pas encore implémenté\n\n");
+	    }
+	    else if( tmp == 2 ) {
+		system("clear");
+		char *chemin = malloc(sizeof(char) * 0);
+		printf("Donner le chemin du Votre fichier : ");
+		scanf("%s", chemin);
+		char *str = lire(chemin);
+		
+		mpz_t n;
+		mpz_init(n);
+		mpz_set_str(n, str, 10);
+		free(str);
+		free(chemin);
+		
+		printf("\n\n");
+
+		mpz_t k;
+		mpz_init(k);
+		printf("Choisissez le nombre d'itération : ");
+		mpz_inp_str(k, 0, 10);
+
+		printf("\n");
+		
+		if(miller_rabbin(n, k)) {
+		    printf("Votre nombre est premier\n\n");
+		}
+		else {
+		    printf("Votre nombre n'est pas premier\n\n");
+		}
+
+		mpz_clear(n);
+		mpz_clear(k);
+	    }
+	    else if( tmp == 3 ) {
+		system("clear");
+	    }
+	    else {
+		system("clear");
+		printf("Veuillez entrez un numéro valide svp\n\n");
+	    }
 	}
 	else if( tmp == 3 ) {
 	    system("clear");
