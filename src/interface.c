@@ -26,17 +26,17 @@ char *lire(char *chemin) {
 void menu(void) {
     printf("************************* MENU PRINCIPALE ***********************\n");
     printf("Veuillez choisir une option :\n");
-    printf("\t 1-Entrer directement le nombre\n");
-    printf("\t 2-Utiliser le nombre dans le fichier nombre.txt \n");
-    printf("\t 3-Quitter\n");
+    printf("\t 1 - Entrer le nombre à tester\n");
+    printf("\t 2 - Utiliser un nombre écris dans un fichier\n");
+    printf("\t 3 - Quitter\n");
 }
 
 void test_primal(void) {
     printf("************************* MENU SECONDAIRE ***********************\n");
     printf("Veuillez choisir une option :\n");
-    printf("\t 1-Test de Fermat\n");
-    printf("\t 2-Test de miller rabbin\n");
-    printf("\t 3-Retour\n");
+    printf("\t 1 - Test de Fermat\n");
+    printf("\t 2 - Test de Miller Rabbin\n");
+    printf("\t 3 - Retour\n");
 }
 
 void choisis_nombre(mpz_t n) {
@@ -115,6 +115,8 @@ void interface(void) {
 		printf("\n\n");
 	    } while(tmp < 1 || tmp > 3);
 	    
+	    system("clear");
+	    
 	    if( tmp == 1 ) {
 		if(testFermatmpz(n, k)) {
 		    printf("\033[33mVotre nombre est premier\n\n\033[34m");
@@ -136,7 +138,7 @@ void interface(void) {
 	    }
 	    else {
 		system("clear");
-		printf("Veuillez entrez un numéro valide svp\n\n");
+		printf("Veuillez entrer un numéro valide svp\n\n");
 	    }
 	    press_to_continue();
 	}
@@ -162,6 +164,8 @@ void interface(void) {
 		printf("\n\n");
 	    } while(tmp < 1 || tmp > 3);
 	    
+	    system("clear");
+	    
 	    if( tmp == 1 ) {
 		if(testFermatmpz(n, k)) {
 		    printf("\033[33mVotre nombre est premier\n\n\033[34m");
@@ -183,7 +187,7 @@ void interface(void) {
 	    }
 	    else {
 		system("clear");
-		printf("Veuillez entrez un numéro valide svp\n\n");
+		printf("Veuillez entrer un numéro valide svp\n\n");
 	    }
 	    press_to_continue();
 	}
@@ -193,7 +197,7 @@ void interface(void) {
 	}
 	else {
 	    system("clear");
-	    printf("Veuillez entrez un numéro valide svp\n\n");
+	    printf("Veuillez entrer un numéro valide svp\n\n");
 	    
 	    press_to_continue();
 	}
