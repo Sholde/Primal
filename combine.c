@@ -285,7 +285,7 @@ int main(int argc, char const *argv[])
         f++;
        
     }
-   printf ("\033[31m");
+ printf ("\033[31m");
 printf("\n");
 printf("\t               .-~~~~~~~~~-._       _.-~~~~~~~~~-.                  \n ");
 printf("\t           __.'              ~.   .~              `.__               \n ");
@@ -339,17 +339,22 @@ printf ("\033[34m");
 			   int f =testFermatmpz(nbr,k);
 			   if(f==0)
 			   {
-                   printf(" Le nombre :" );
-                   mpz_out_str(stdout,10,nbr);
-                   printf(" est non premier \n");
+			   	printf ("\033[35m"); 
+                  printf(" Le nombre : " );
+                  mpz_out_str(stdout,10,nbr);
+                  printf(" est non premier\n");
+                  printf ("\033[34m");
+                 
 			   }
 			   else
 			   {
 			   	if(f==1)
 			   	{
+			   		printf ("\033[33m");
                   printf(" Le nombre :" );
                    mpz_out_str(stdout,10,nbr); 
                    printf(" est  premier \n");
+                   printf ("\033[34m");
 			   	}
 			   }
     }
@@ -362,17 +367,21 @@ printf ("\033[34m");
 			   int m =millerRabinmpz(nbr,k);
 			   if(m==0)
 			   {
+			   	   printf ("\033[35m");
                    printf(" Le nombre  :" );
                    mpz_out_str(stdout,10,nbr);
                    printf(" est non premier \n");
+                   printf ("\033[34m");
 			   }
 			   else
 			   {
 			   	if(m==1)
 			   	{
+			   		printf ("\033[33m");
                   printf(" Le nombre " );
                    mpz_out_str(stdout,10,nbr);
                    printf(" est  premier \n");
+                   printf ("\033[34m");
 			   	}
 			   }
     	}
@@ -392,7 +401,9 @@ printf ("\033[34m");
     	do
      {
   printf("\n\n");
+  printf("****************************************\n");
   Menu1();
+  printf("*****************************************\n");
     printf("Votre Choix SVP :\t");
     scanf("%d",&choix1);
        if(choix1 ==1){
@@ -405,17 +416,21 @@ printf ("\033[34m");
 			   int f =testFermatmpz(n,k);
 			   if(f==0)
 			   {
+			   	printf ("\033[35m");
                    printf(" Le nombre " );
                    mpz_out_str(stdout,10,n);
                    printf(" est non premier \n");
+                   printf ("\033[34m");
 			   }
 			   else
 			   {
 			   	if(f==1)
 			   	{
+			   		printf ("\033[33m");
                   printf(" Le nombre " );
                    mpz_out_str(stdout,10,n); 
                    printf(" est  premier \n");
+                   printf ("\033[34m");
 			   	}
 
 			   }
@@ -429,17 +444,21 @@ printf ("\033[34m");
 			   int m =millerRabinmpz(n,k);
 			   if(m==0)
 			   {
+			   	printf ("\033[35m");
                    printf(" Le nombre " );
                    mpz_out_str(stdout,10,n);
                    printf(" est non premier \n");
+                   printf ("\033[34m");
 			   }
 			   else
 			   {
 			   	if(m==1)
 			   	{
+			   		printf ("\033[33m");
                   printf(" Le nombre " );
                    mpz_out_str(stdout,10,n);
                    printf(" est  premier \n");
+                   printf ("\033[34m");
 			   	}
 			   } }
 
