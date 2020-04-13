@@ -37,6 +37,18 @@ void test_primal(void) {
     printf("\t 3-Retour\n");
 }
 
+void choisis_nombre(mpz_t n) {
+    printf("Choisissez le nombre à tester : \n");
+    mpz_inp_str(n, 0, 10);
+    printf("\n");
+}
+
+void choisis_iteration(mpz_t k) {
+    printf("Choisissez le nombre d'itération : ");
+    mpz_inp_str(k, 0, 10);
+    printf("\n");
+}
+
 void interface(void) {
     
     char *str="Bienvenue dans le programme de Lynda & Nicolas\n";
@@ -53,6 +65,7 @@ void interface(void) {
        
     }
 
+    printf ("\033[31m");
     printf("\n");
     printf("\t               .-~~~~~~~~~-._       _.-~~~~~~~~~-.                  \n ");
     printf("\t           __.'              ~.   .~              `.__               \n ");
@@ -63,8 +76,13 @@ void interface(void) {
     printf("\t.'______________________________|/______________________________`.\n \n \n");
     
     int noQuit = 1;
+    mpz_t n;
+    mpz_init(n);
+    mpz_t k;
+    mpz_init(k);
     
     while( noQuit ) {
+	
 	menu();
 	printf("\nFaites votre choix : ");
 	int tmp;
@@ -72,6 +90,7 @@ void interface(void) {
 	printf("\n\n");
 	
 	if( tmp == 1 ) {
+	    
 	    system("clear");
 	    test_primal();
 	    printf("\nFaites votre choix : ");
@@ -84,29 +103,16 @@ void interface(void) {
 	    }
 	    else if( tmp == 2 ) {
 		system("clear");
-		mpz_t n;
-		mpz_init(n);
-		printf("Choisissez le nombre à tester : \n");
-		mpz_inp_str(n, 0, 10);
-
-		printf("\n");
-
-		mpz_t k;
-		mpz_init(k);
-		printf("Choisissez le nombre d'itération : ");
-		mpz_inp_str(k, 0, 10);
-
-		printf("\n");
+		
+		choisis_nombre(n);
+		choisis_iteration(k);
 		
 		if(miller_rabbin(n, k)) {
-		    printf("Vôtre nombre est premier\n\n");
+		    printf("\033[33mVotre nombre est premier\n\n\033[34m");
 		}
 		else {
-		    printf("Vôtre nombre n'est pas premier\n\n");
+		    printf("\033[35mVotre nombre n'est pas premier\n\n\033[34m");
 		}
-
-		mpz_clear(n);
-		mpz_clear(k);
 	    }
 	    else if( tmp == 3 ) {
 		system("clear");
@@ -176,4 +182,6 @@ void interface(void) {
 	    printf("Veuillez entrez un numéro valide svp\n\n");
 	}
     }
+    mpz_clear(n);
+    mpz_clear(k);
 }
