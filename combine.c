@@ -47,14 +47,11 @@ void square_and_multiply(mpz_t res, mpz_t a, mpz_t n, mpz_t h) {
     mpz_t i;
     mpz_init(i);
     mpz_sub_ui(i, nb, 1);
-
     mpz_t test;
     mpz_init(test);
-
     for(; mpz_cmp_ui(i, 0) >= 0; mpz_sub_ui(i, i, 1)) {
         mpz_mul(res, res, res);
         mpz_mod(res, res, n);
-
         pos(test, i);
         mpz_and(test, test, h);
         if(mpz_cmp_ui(test, 0) != 0) {
@@ -62,12 +59,10 @@ void square_and_multiply(mpz_t res, mpz_t a, mpz_t n, mpz_t h) {
             mpz_mod(res, res, n);
         }
     }
-
     mpz_clear(nb);
     mpz_clear(i);
     mpz_clear(test);
 }
-
 //cette fonction permet de tester si un nombre est probablement premier ou composé 
 //elle prend en paramètre deux nombres : n  le nombre à tester et k le nombre de fois à faire le test 
 int testFermatmpz(mpz_t n ,mpz_t k)
@@ -183,11 +178,9 @@ int millerRabinmpz(mpz_t n, mpz_t k)
 		mpz_init(a);
       do{     mpz_urandomm(a,etat,n); //la génération aléatoire de a
 		}while(mpz_cmp_ui(a,0)==0);
-   
         mpz_t re;
         mpz_init(re);
         mpz_set(nr,n1);
-       // squaremultiplympz(a,n,nr,re); // re = a ^ nr mod n
         square_and_multiply(re,a,n,nr);
       if(mpz_cmp_ui(re,1)==0 || mpz_cmp(re,sous)==0) continue; //on passe a l'itération suivante
 	for (mpz_set_ui(j, 1);mpz_cmp(j,nbr1)<=0 ;mpz_add_ui(j,j,1)) 
@@ -225,23 +218,18 @@ int millerRabinmpz(mpz_t n, mpz_t k)
 	mpz_clear(nbr1);
 	mpz_clear(j);
 	mpz_clear(nr);
-
 	return 1;//premier 
 }
 #define TAILLE_MAX 1024 // Tableau de taille 1024
 //mpz_set_str
 char* lire(char * chemin)
 {
-	 FILE* fichier = NULL;
-
+    FILE* fichier = NULL;
     char *chaine; 
     chaine=malloc(TAILLE_MAX* sizeof(char));
- 
     fichier = fopen(chemin, "r");
- 
     if (fichier != NULL)
     {
-    
         fgets(chaine, TAILLE_MAX, fichier); // On lit maximum TAILLE_MAX caractères du fichier, on stocke le tout dans "chaine"
         fclose(fichier);
     }
@@ -258,8 +246,7 @@ void Menu()
 	printf("Veuillez choisir une option :\n");
 	printf("\t 1-Exécuter un nombre d'un fichier  \n");
 	printf("\t 2-Entrer le nombre directement \n");
-	printf("\t 2-Quitter\n");
-	
+	printf("\t 2-Quitter\n");	
 }
 void Menu1()
 {
@@ -270,11 +257,9 @@ void Menu1()
 char *str="Bienvenue dans notre  programme Lynda & Nicolas  :) \n";
 int main(int argc, char const *argv[])
 {
-
-	 system("clear");
-
-	 printf ("\033[32m");
-	 int f=0;
+    system("clear");
+    printf ("\033[32m");
+    int f=0;
     printf("\n\n\t\t\t");
     int c=1;
     while(str[f]!='\0')
@@ -285,7 +270,7 @@ int main(int argc, char const *argv[])
         f++;
        
     }
- printf ("\033[31m");
+printf ("\033[31m");
 printf("\n");
 printf("\t               .-~~~~~~~~~-._       _.-~~~~~~~~~-.                  \n ");
 printf("\t           __.'              ~.   .~              `.__               \n ");
@@ -297,49 +282,42 @@ printf("\t.'______________________________|/______________________________`.\n \
 printf ("\033[34m");
     mpz_t n;
     mpz_init(n);
-   
     mpz_t k;
     mpz_init(k);
     mpz_t res;
-   mpz_init(res);
-  
+    mpz_init(res);
    int choix;
    int choix1;
    char * nombre;
-	char * chemin;
+   char * chemin;
    do
-
   {
-  	 Menu();
+   Menu();
    printf("Votre Choix SVP :\t");
-    scanf("%d",&choix);
-
+   scanf("%d",&choix);
     switch(choix)
     {
     	case 1:
-    
 	chemin=malloc(sizeof(char));
 	printf("Donner le chemin du Votre fichier \t");
-    scanf("%s",chemin);
+        scanf("%s",chemin);
 	nombre=lire(chemin);
 	mpz_t nbr;
 	mpz_init(nbr);
-    mpz_set_str(nbr,nombre,10);
-   
+        mpz_set_str(nbr,nombre,10);
   do{ 
   	printf("***********************************************\n");
   	Menu1();
   	printf("*************************************************\n");
   	printf("Votre Choix SVP :\t");
-    scanf("%d",&choix1);
+        scanf("%d",&choix1);
     if(choix1==1)
     {
               printf("Choisissez le nombre d'itération : \t");
-			   mpz_inp_str(k, 0, 10);
-			   int f =testFermatmpz(nbr,k);
-			   if(f==0)
-			   {
-			   	printf ("\033[35m"); 
+	      mpz_inp_str(k, 0, 10);
+	      int f =testFermatmpz(nbr,k);
+	      if(f==0)  {
+	          printf ("\033[35m"); 
                   printf(" Le nombre : " );
                   mpz_out_str(stdout,10,nbr);
                   printf(" est non premier\n");
@@ -350,8 +328,8 @@ printf ("\033[34m");
 			   {
 			   	if(f==1)
 			   	{
-			   		printf ("\033[33m");
-                  printf(" Le nombre :" );
+	           printf ("\033[33m");
+                   printf(" Le nombre :" );
                    mpz_out_str(stdout,10,nbr); 
                    printf(" est  premier \n");
                    printf ("\033[34m");
@@ -363,11 +341,11 @@ printf ("\033[34m");
     	if(choix1==2)
     	{
                printf("Choisissez le nombre d'itération : \t");
-			   mpz_inp_str(k, 0, 10);
-			   int m =millerRabinmpz(nbr,k);
-			   if(m==0)
-			   {
-			   	   printf ("\033[35m");
+	       mpz_inp_str(k, 0, 10);
+	       int m =millerRabinmpz(nbr,k);
+	        if(m==0)
+	{
+	           printf ("\033[35m");
                    printf(" Le nombre  :" );
                    mpz_out_str(stdout,10,nbr);
                    printf(" est non premier \n");
@@ -377,9 +355,9 @@ printf ("\033[34m");
 			   {
 			   	if(m==1)
 			   	{
-			   		printf ("\033[33m");
+		  printf ("\033[33m");
                   printf(" Le nombre " );
-                   mpz_out_str(stdout,10,nbr);
+                  mpz_out_str(stdout,10,nbr);
                    printf(" est  premier \n");
                    printf ("\033[34m");
 			   	}
@@ -416,7 +394,7 @@ printf ("\033[34m");
 			   int f =testFermatmpz(n,k);
 			   if(f==0)
 			   {
-			   	printf ("\033[35m");
+	           printf ("\033[35m");
                    printf(" Le nombre " );
                    mpz_out_str(stdout,10,n);
                    printf(" est non premier \n");
@@ -426,7 +404,7 @@ printf ("\033[34m");
 			   {
 			   	if(f==1)
 			   	{
-			   		printf ("\033[33m");
+		printf ("\033[33m");
                   printf(" Le nombre " );
                    mpz_out_str(stdout,10,n); 
                    printf(" est  premier \n");
@@ -444,7 +422,7 @@ printf ("\033[34m");
 			   int m =millerRabinmpz(n,k);
 			   if(m==0)
 			   {
-			   	printf ("\033[35m");
+		   printf ("\033[35m");
                    printf(" Le nombre " );
                    mpz_out_str(stdout,10,n);
                    printf(" est non premier \n");
@@ -454,7 +432,7 @@ printf ("\033[34m");
 			   {
 			   	if(m==1)
 			   	{
-			   		printf ("\033[33m");
+		  printf ("\033[33m");
                   printf(" Le nombre " );
                    mpz_out_str(stdout,10,n);
                    printf(" est  premier \n");
