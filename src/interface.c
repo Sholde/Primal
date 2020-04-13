@@ -7,7 +7,7 @@
 
 #define TAILLE_MAX 1024 // Tableau de taille 1024
 
-char* lire(char * chemin) {
+char *lire(char *chemin) {
     FILE* fichier = NULL;
     char *chaine = malloc(sizeof(char) * TAILLE_MAX);
     fichier = fopen(chemin, "r");
@@ -93,7 +93,7 @@ void interface(void) {
 
 		mpz_t k;
 		mpz_init(k);
-		printf("Choisissez le nombre d'itération : \n");
+		printf("Choisissez le nombre d'itération : ");
 		mpz_inp_str(k, 0, 10);
 
 		printf("\n");
@@ -129,17 +129,22 @@ void interface(void) {
 	    }
 	    else if( tmp == 2 ) {
 		system("clear");
-		char *chemin = "nombre.txt";
+		char *chemin = malloc(sizeof(char) * 0);
+		printf("Donner le chemin du Votre fichier : ");
+		scanf("%s", chemin);
 		char *str = lire(chemin);
 		
 		mpz_t n;
 		mpz_init(n);
 		mpz_set_str(n, str, 10);
 		free(str);
+		free(chemin);
+		
+		printf("\n\n");
 
 		mpz_t k;
 		mpz_init(k);
-		printf("Choisissez le nombre d'itération : \n");
+		printf("Choisissez le nombre d'itération : ");
 		mpz_inp_str(k, 0, 10);
 
 		printf("\n");
