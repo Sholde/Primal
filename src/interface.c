@@ -4,6 +4,7 @@
 #include <gmp.h>
 
 #include "miller_rabbin.h"
+#include "fermat.h"
 
 #define TAILLE_MAX 1024 // Tableau de taille 1024
 
@@ -23,7 +24,7 @@ char *lire(char *chemin) {
 }
 
 void menu(void) {
-    printf("*************************DM CRYPTO***********************\n");
+    printf("************************* MENU PRINCIPALE ***********************\n");
     printf("Veuillez choisir une option :\n");
     printf("\t 1-Entrer directement le nombre\n");
     printf("\t 2-Utiliser le nombre dans le fichier nombre.txt \n");
@@ -31,6 +32,7 @@ void menu(void) {
 }
 
 void test_primal(void) {
+    printf("************************* MENU SECONDAIRE ***********************\n");
     printf("Veuillez choisir une option :\n");
     printf("\t 1-Test de Fermat\n");
     printf("\t 2-Test de miller rabbin\n");
@@ -49,9 +51,17 @@ void choisis_iteration(mpz_t k) {
     printf("\n");
 }
 
+void press_to_continue(void) {
+    int tmp;
+    printf("Entrez un nombre pour continuer... ");
+    scanf("%d", &tmp);
+    printf("\n\n");
+    system("clear");
+}
+
 void interface(void) {
     
-    char *str="Bienvenue dans le programme de Lynda & Nicolas\n";
+    char *str="Bienvenue dans le programme de Lynda & Nicolas :) \n";
     
     system("clear");
     printf ("\033[32m");
@@ -74,6 +84,7 @@ void interface(void) {
     printf("\t   .'//.-'                 `-.  |  .-'                 ''-.\\`.  \n ");
     printf("\t  .'//______.============-..    | /   ..-============.______\\`.\n ");
     printf("\t.'______________________________|/______________________________`.\n \n \n");
+    printf ("\033[34m");
     
     int noQuit = 1;
     mpz_t n;
@@ -84,7 +95,7 @@ void interface(void) {
     while( noQuit ) {
 	
 	menu();
-	printf("\nFaites votre choix : ");
+	printf("\nFaîtes votre choix : ");
 	int tmp;
 	scanf("%d", &tmp);
 	printf("\n\n");
@@ -92,21 +103,27 @@ void interface(void) {
 	if( tmp == 1 ) {
 	    
 	    system("clear");
-	    test_primal();
-	    printf("\nFaites votre choix : ");
-	    scanf("%d", &tmp);
-	    printf("\n\n");
+		
+	    choisis_nombre(n);
+	    choisis_iteration(k);
+	    
+	    do {
+		system("clear");
+		test_primal();
+		printf("\nFaites votre choix : ");
+		scanf("%d", &tmp);
+		printf("\n\n");
+	    } while(tmp < 1 || tmp > 3);
 	    
 	    if( tmp == 1 ) {
-		system("clear");
-		printf("Nous somme désolé mais ce n'est pas encore implémenté\n\n");
+		if(testFermatmpz(n, k)) {
+		    printf("\033[33mVotre nombre est premier\n\n\033[34m");
+		}
+		else {
+		    printf("\033[35mVotre nombre n'est pas premier\n\n\033[34m");
+		}
 	    }
 	    else if( tmp == 2 ) {
-		system("clear");
-		
-		choisis_nombre(n);
-		choisis_iteration(k);
-		
 		if(miller_rabbin(n, k)) {
 		    printf("\033[33mVotre nombre est premier\n\n\033[34m");
 		}
@@ -121,49 +138,45 @@ void interface(void) {
 		system("clear");
 		printf("Veuillez entrez un numéro valide svp\n\n");
 	    }
+	    press_to_continue();
 	}
 	else if( tmp == 2 ) {
 	    system("clear");
-	    test_primal();
-	    printf("\nFaites votre choix : ");
-	    scanf("%d", &tmp);
-	    printf("\n\n");
+		
+	    char *chemin = malloc(sizeof(char) * 0);
+	    printf("Donner le chemin du Votre fichier : ");
+	    scanf("%s", chemin);
+	    char *str = lire(chemin);
+	    
+	    mpz_set_str(n, str, 10);
+	    free(str);
+	    free(chemin);
+	    
+	    choisis_iteration(k);
+	    
+	    do {
+		system("clear");
+		test_primal();
+		printf("\nFaites votre choix : ");
+		scanf("%d", &tmp);
+		printf("\n\n");
+	    } while(tmp < 1 || tmp > 3);
 	    
 	    if( tmp == 1 ) {
-		system("clear");
-		printf("Nous somme désolé mais ce n'est pas encore implémenté\n\n");
-	    }
-	    else if( tmp == 2 ) {
-		system("clear");
-		char *chemin = malloc(sizeof(char) * 0);
-		printf("Donner le chemin du Votre fichier : ");
-		scanf("%s", chemin);
-		char *str = lire(chemin);
-		
-		mpz_t n;
-		mpz_init(n);
-		mpz_set_str(n, str, 10);
-		free(str);
-		free(chemin);
-		
-		printf("\n\n");
-
-		mpz_t k;
-		mpz_init(k);
-		printf("Choisissez le nombre d'itération : ");
-		mpz_inp_str(k, 0, 10);
-
-		printf("\n");
-		
-		if(miller_rabbin(n, k)) {
-		    printf("Votre nombre est premier\n\n");
+		if(testFermatmpz(n, k)) {
+		    printf("\033[33mVotre nombre est premier\n\n\033[34m");
 		}
 		else {
-		    printf("Votre nombre n'est pas premier\n\n");
+		    printf("\033[35mVotre nombre n'est pas premier\n\n\033[34m");
 		}
-
-		mpz_clear(n);
-		mpz_clear(k);
+	    }
+	    else if( tmp == 2 ) {
+		if(miller_rabbin(n, k)) {
+		    printf("\033[33mVotre nombre est premier\n\n\033[34m");
+		}
+		else {
+		    printf("\033[35mVotre nombre n'est pas premier\n\n\033[34m");
+		}
 	    }
 	    else if( tmp == 3 ) {
 		system("clear");
@@ -172,6 +185,7 @@ void interface(void) {
 		system("clear");
 		printf("Veuillez entrez un numéro valide svp\n\n");
 	    }
+	    press_to_continue();
 	}
 	else if( tmp == 3 ) {
 	    system("clear");
@@ -180,6 +194,8 @@ void interface(void) {
 	else {
 	    system("clear");
 	    printf("Veuillez entrez un numéro valide svp\n\n");
+	    
+	    press_to_continue();
 	}
     }
     mpz_clear(n);
