@@ -53,7 +53,7 @@ void choisis_iteration(mpz_t k) {
 	printf("Choisissez le nombre d'itération > 0 : \t");
 	mpz_inp_str(k, 0, 10);
 	printf("\n");
-    } while(mpz_cmp_ui(k, 1) < 1);
+    } while(mpz_cmp_ui(k, 1) < 0);
 }
 
 void livre(void) {
