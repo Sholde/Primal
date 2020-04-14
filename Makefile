@@ -5,7 +5,7 @@ CC = gcc
 OPTI = -Ofast
 
 EXEC = app.exe
-ARCHIVE = BOUTON_Nicolas-HADJAB_LYNDA-DEDARALLY_Taariq
+ARCHIVE = BOUTON_Nicolas-HADJAB_LYNDA
 TAR = tar.gz
 
 SRCDIR = src
