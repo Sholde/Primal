@@ -27,7 +27,8 @@ void menu(void) {
     printf("Veuillez choisir une option :\n");
     printf("\t 1 - Entrer le nombre à tester\n");
     printf("\t 2 - Utiliser un nombre écris dans un fichier\n");
-    printf("\t 3 - Quitter\n");
+    printf("\t 3 - Ecrire le nombre dans un fichier et le tester\n");
+    printf("\t 4 - Quitter\n");
     printf("********************************************************************\n");
 }
 
@@ -68,6 +69,26 @@ void livre(void) {
     printf("\t.'______________________________|/______________________________`.\n \n \n");
     printf ("\033[34m");
 }
+int creeEcrire(char * chemin)
+{
+	 FILE * fichier;
+	 fichier=fopen(chemin , "w");
+	 if(fichier!=NULL)
+	 {
+	 	     char * nbr =malloc(sizeof(char));
+              printf("Donner le nombre souhaité tester\t");
+              scanf("%s",nbr);
+              fputs(nbr,fichier);
+              fclose(fichier);
+              return 1;
+
+	 }
+	 else
+	 {
+	 	printf("Erreur du création\n");
+	 	return 0;
+	 }
+}
 
 void interface(void) {
     
@@ -85,8 +106,7 @@ void interface(void) {
        
     }
     
-    livre();
-    
+    livre(); 
     mpz_t n;
     mpz_init(n);
     mpz_t k;
@@ -191,10 +211,69 @@ void interface(void) {
 	     	livre();
 	    }
 	}
-	else if( tmp == 3 ) {
+	else
+		if(tmp==3)
+		{
+
+			char * nom=malloc(sizeof(char));
+			printf("Donner un nom pour le fichier\t");
+			scanf("%s",nom);
+			char *nombre;
+			int rs=creeEcrire(nom);
+			if(rs==1)
+			{
+                  nombre=lire(nom);
+                  mpz_set_str(n,nombre,10);
+                  free(nombre);
+                  free(nom);
+                  choisis_iteration(k);
+          do {
+		system("clear");
+		livre();
+		test_primal();
+		printf("\nFaites votre choix : ");
+		scanf("%d", &choix);
+		printf("\n");
+		if( choix == 1 ) {
+		    if(testFermatmpz(n, k)) {
+			printf("\033[33mVotre nombre est premier\n\n\033[34m");
+		    }
+		    else {
+			printf("\033[35mVotre nombre n'est pas premier\n\n\033[34m");
+		    }
+		}
+		else if( choix == 2 ) {
+		    if(miller_rabbin(n, k)) {
+			printf("\033[33mVotre nombre est premier\n\n\033[34m");
+		    }
+		    else {
+			printf("\033[35mVotre nombre n'est pas premier\n\n\033[34m");
+		    }
+		}
+		else if( choix == 3 ) {
+		    break;
+		}
+	   
+		printf("Voulez vous réessayer avec les mêmes paramètres ? (1 : oui) | (0 : non)\t ");
+		scanf("%d", &rps);
+	    } while(choix < 1 || choix > 3 || rps==1);
+	     if(rps != 1){
+	     	system("clear");
+	     	livre();
+	    }
+}
+			else
+			{
+				if(rs==0)
+				{
+					printf("Erreur de creation\n");
+				}
+			}
+		}
+	else if( tmp == 4) {
 	    break;
 	}
-    } while(tmp != 3);
+    } while(tmp != 4);
     mpz_clear(n);
     mpz_clear(k);
     
