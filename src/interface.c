@@ -10,12 +10,12 @@
 char *lire(char *chemin) {
     FILE* fichier = NULL;
     char *chaine = malloc(sizeof(char) * TAILLE_MAX);
-    fichier = fopen(chemin, "r");
-    if (fichier != NULL) {
+    fichier = fopen(chemin, "r");//ouverture du fichier en mode lecture seulement
+    if (fichier != NULL) {//si l ouverture n'a pas échoué 
         fgets(chaine, TAILLE_MAX, fichier); // On lit maximum TAILLE_MAX caractères du fichier, on stocke le tout dans "chaine"
-        fclose(fichier);
+        fclose(fichier);//fermeture du fichier
     }
-    else {
+    else {//le cas ou l'ouverture du fichier est échoué
  	printf("Erreur d'ouverture du fichier\n");
 	exit(1);
     }
@@ -50,6 +50,7 @@ void choisis_nombre(mpz_t n) {
 }
 
 void choisis_iteration(mpz_t k) {
+	//il faut que le nombre d'itération soit supérieur à 0
     do {
 	printf("Choisissez le nombre d'itération > 0 : \t");
 	mpz_inp_str(k, 0, 10);
@@ -72,7 +73,9 @@ void livre(void) {
 int creeEcrire(char * chemin)
 {
 	 FILE * fichier;
-	 fichier=fopen(chemin , "w");
+	 fichier=fopen(chemin , "w");//ouvrire le fichier en mode écriture 
+	 //si le fichier existe en écrase son contenu et on écrit dedans sinon on creer un nouveau fichier 
+	 //il faut qu'il soit un fichier .txt
 	 if(fichier!=NULL)
 	 {
 	 	     char * nbr =malloc(sizeof(char));
