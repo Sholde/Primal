@@ -42,18 +42,19 @@ void test_primal(void) {
 }
 
 void choisis_nombre(mpz_t n) {
+	//il faut choisir un nombre supérieur ou égale à deux 
     do {
 	printf("Choisissez le nombre à tester > 1 : \t");
-	mpz_inp_str(n, 0, 10);
+	mpz_inp_str(n, 0, 10);//fonction qui permet de donner la main à l'utilisateur de saisir le nombre
 	printf("\n");
-    } while(mpz_cmp_ui(n, 2) < 0);
+    } while(mpz_cmp_ui(n, 2) < 0);//tant que n<2 on redemande a l'utilisateur de resaisir un nombre 
 }
 
 void choisis_iteration(mpz_t k) {
 	//il faut que le nombre d'itération soit supérieur à 0
     do {
 	printf("Choisissez le nombre d'itération > 0 : \t");
-	mpz_inp_str(k, 0, 10);
+	mpz_inp_str(k, 0, 10);//fonction qui permet de donner la main à l'utilisateur de saisir le nombre 
 	printf("\n");
     } while(mpz_cmp_ui(k, 1) < 0);
 }
@@ -119,17 +120,17 @@ void interface(void) {
     int tmp;
     int choix;
     do {
-	menu();
+	menu();//appel à la procedure menu()
 	printf("\nFaîtes votre choix SVP: \t");
 	scanf("%d", &tmp);
 	printf("\n\n");
 	
 	if( tmp == 1 ) {  
-	    choisis_nombre(n);
-	    choisis_iteration(k);
+	    choisis_nombre(n);//appel à la fonction choisis_nombre et on mis le résultas dans n
+	    choisis_iteration(k);//appel à la fonction choisis_itération et on mis le résultas dans k
 	    
 	    do {
-		system("clear");
+		system("clear");//clean la fenetre , c est une commande système
 		livre();
 		test_primal();
 		printf("\nFaites votre choix : ");
