@@ -5,7 +5,7 @@
  * Miller Rabbin
  * @param n : nombre à tester
  * @param k : nombre d'itération
- * @return 1 si il est premier, 0 sinon
+ * @return 1 si il est probablement premier premier, 0 sinon
  */
 int testFermatmpz(mpz_t n ,mpz_t k);
 

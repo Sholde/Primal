@@ -43,7 +43,6 @@ int testFermatmpz(mpz_t n ,mpz_t k)
       }while(mpz_cmp_ui(a,0)==0 || mpz_cmp(a,sous)==0 || mpz_cmp_ui(a,1)==0); //il faut que a soit entre 1 et n-1  , 1<a<n-1
           mpz_set(sauv,sous); //on a fait ca parce que la fonction squaremultiplympz modifier la valeur de l'exposant 
           //pour cela on la sauvegarder dans la variable sous 
-       // squaremultiplympz(a,n, sauv,sm); // sm = a ^{n-1} mod n
           square_and_multiply(sm,a,n,sauv);
         if(mpz_cmp_ui(sm ,1)!=0 ) // si sm != 1
         {

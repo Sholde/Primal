@@ -36,8 +36,14 @@ void choisis_iteration(mpz_t k);
 void livre(void);
 
 /**
+ * Permet à l'utilisateur de choisir le nombre souhaité tester et le mettre dans le fichier "chemin" si il existe 
+ *sinon on creer un fichier et mettre le nombre dans le fichier
+*/
+int creeEcrire(char * chemin); 
+/**
  * Fonction principale d'affichage et gestion entrée/sortie avec l'utilisateur
  */
+
 void interface(void);
 
 #endif // !_interface_h
