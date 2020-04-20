@@ -78,18 +78,18 @@ int creeEcrire(char * chemin)
 	 //il faut qu'il soit un fichier .txt
 	 if(fichier!=NULL)
 	 {
-	 	     char * nbr =malloc(sizeof(char));
-              printf("Donner le nombre souhaité tester\t");
-              scanf("%s",nbr);
-              fputs(nbr,fichier);
-              fclose(fichier);
-              return 1;
+	 	     char * nbr =malloc(sizeof(char)); //allouer nbr 
+              printf("Donner le nombre souhaité tester\t"); 
+              scanf("%s",nbr);//le nombre sous forme d'une chaine de caractère pour pouvoir le stocker ds le fichier 
+              fputs(nbr,fichier);//écrire le nombre saisir dans le fichier
+              fclose(fichier);//fermeture du fichier
+              return 1;//réussite
 
 	 }
 	 else
 	 {
 	 	printf("Erreur du création\n");
-	 	return 0;
+	 	return 0;//échoue
 	 }
 }
 
@@ -97,14 +97,15 @@ void interface(void) {
     
     char *str="Bienvenue dans le programme de Lynda & Nicolas :) \n";
     
-    system("clear");
-    printf ("\033[32m");
+    system("clear");//effacer le contenu de la fenetre 
+    printf ("\033[32m");//permet de modifier la couleur 
     int f=0;
     printf("\n\n\t\t");
+    //afficher la chaine str caractère par caractère 
     while(str[f]!='\0') {
     	printf ("%c", str[f]);
         fflush(stdout);
-        usleep(100000);
+        usleep(100000);//pour la durée entre chaque affichage d'un caractère
         f++;
        
     }
