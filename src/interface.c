@@ -78,7 +78,7 @@ int creeEcrire(char * chemin)
 	 //il faut qu'il soit un fichier .txt
 	 if(fichier!=NULL)
 	 {
-	 	     char * nbr =malloc(sizeof(char)); //allouer nbr 
+	 	     char * nbr =malloc(1024*sizeof(char)); //allouer nbr 
               printf("Donner le nombre souhaité tester\t"); 
               scanf("%s",nbr);//le nombre sous forme d'une chaine de caractère pour pouvoir le stocker ds le fichier 
               fputs(nbr,fichier);//écrire le nombre saisir dans le fichier
