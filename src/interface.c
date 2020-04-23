@@ -139,18 +139,18 @@ void interface(void) {
 		
 		if( choix == 1 ) {
 		    if(testFermatmpz(n, k)) {
-			printf("\033[33mVotre nombre est premier\n\n\033[34m");
+			printf("\033[33mVotre nombre est premier\n\n\033[36m");
 		    }
 		    else {
-			printf("\033[35mVotre nombre n'est pas premier\n\n\033[34m");
+			printf("\033[35mVotre nombre n'est pas premier\n\n\033[36m");
 		    }
 		}
 		else if( choix == 2 ) {
 		    if(miller_rabbin(n, k)) {
-			printf("\033[33mVotre nombre est premier\n\n\033[34m");
+			printf("\033[33mVotre nombre est premier\n\n\033[36m");
 		    }
 		    else {
-			printf("\033[35mVotre nombre n'est pas premier\n\n\033[34m");
+			printf("\033[35mVotre nombre n'est pas premier\n\n\033[36m");
 		    }
 		}
 		else if( choix == 3 ) {
@@ -188,18 +188,18 @@ void interface(void) {
 	   
 		if( choix == 1 ) {
 		    if(testFermatmpz(n, k)) {
-			printf("\033[33mVotre nombre est premier\n\n\033[34m");
+			printf("\033[33mVotre nombre est premier\n\n\033[36m");
 		    }
 		    else {
-			printf("\033[35mVotre nombre n'est pas premier\n\n\033[34m");
+			printf("\033[35mVotre nombre n'est pas premier\n\n\033[36m");
 		    }
 		}
 		else if( choix == 2 ) {
 		    if(miller_rabbin(n, k)) {
-			printf("\033[33mVotre nombre est premier\n\n\033[34m");
+			printf("\033[33mVotre nombre est premier\n\n\033[36m");
 		    }
 		    else {
-			printf("\033[35mVotre nombre n'est pas premier\n\n\033[34m");
+			printf("\033[35mVotre nombre n'est pas premier\n\n\033[36m");
 		    }
 		}
 		else if( choix == 3 ) {
@@ -240,18 +240,18 @@ void interface(void) {
 		printf("\n");
 		if( choix == 1 ) {
 		    if(testFermatmpz(n, k)) {
-			printf("\033[33mVotre nombre est premier\n\n\033[34m");
+			printf("\033[33mVotre nombre est premier\n\n\033[36m");
 		    }
 		    else {
-			printf("\033[35mVotre nombre n'est pas premier\n\n\033[34m");
+			printf("\033[35mVotre nombre n'est pas premier\n\n\033[36m");
 		    }
 		}
 		else if( choix == 2 ) {
 		    if(miller_rabbin(n, k)) {
-			printf("\033[33mVotre nombre est premier\n\n\033[34m");
+			printf("\033[33mVotre nombre est premier\n\n\033[36m");
 		    }
 		    else {
-			printf("\033[35mVotre nombre n'est pas premier\n\n\033[34m");
+			printf("\033[35mVotre nombre n'est pas premier\n\n\033[36m");
 		    }
 		}
 		else if( choix == 3 ) {
