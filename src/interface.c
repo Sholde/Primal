@@ -5,7 +5,7 @@
 #include "miller_rabbin.h"
 #include "fermat.h"
 
-#define TAILLE_MAX 1024 // Tableau de taille 1024
+#define TAILLE_MAX 10000 // Tableau de taille 10000
 
 char *lire(char *chemin) {
     FILE* fichier = NULL;
@@ -69,7 +69,7 @@ void livre(void) {
     printf("\t   .'//.-'                 `-.  |  .-'                 ''-.\\`.  \n ");
     printf("\t  .'//______.============-..    | /   ..-============.______\\`.\n ");
     printf("\t.'______________________________|/______________________________`.\n \n \n");
-    printf ("\033[34m");
+    printf ("\033[36m");
 }
 int creeEcrire(char * chemin)
 {
