@@ -5,7 +5,7 @@
 #include "miller_rabbin.h"
 #include "fermat.h"
 
-#define TAILLE_MAX 1024 // Tableau de taille 1024
+#define TAILLE_MAX 10000 // Tableau de taille 10000
 
 char *lire(char *chemin) {
     FILE* fichier = NULL;
@@ -69,7 +69,7 @@ void livre(void) {
     printf("\t   .'//.-'                 `-.  |  .-'                 ''-.\\`.  \n ");
     printf("\t  .'//______.============-..    | /   ..-============.______\\`.\n ");
     printf("\t.'______________________________|/______________________________`.\n \n \n");
-    printf ("\033[34m");
+    printf ("\033[36m");
 }
 int creeEcrire(char * chemin)
 {
@@ -139,18 +139,18 @@ void interface(void) {
 		
 		if( choix == 1 ) {
 		    if(testFermatmpz(n, k)) {
-			printf("\033[33mVotre nombre est premier\n\n\033[34m");
+			printf("\033[33mVotre nombre est premier\n\n\033[36m");
 		    }
 		    else {
-			printf("\033[35mVotre nombre n'est pas premier\n\n\033[34m");
+			printf("\033[35mVotre nombre n'est pas premier\n\n\033[36m");
 		    }
 		}
 		else if( choix == 2 ) {
 		    if(miller_rabbin(n, k)) {
-			printf("\033[33mVotre nombre est premier\n\n\033[34m");
+			printf("\033[33mVotre nombre est premier\n\n\033[36m");
 		    }
 		    else {
-			printf("\033[35mVotre nombre n'est pas premier\n\n\033[34m");
+			printf("\033[35mVotre nombre n'est pas premier\n\n\033[36m");
 		    }
 		}
 		else if( choix == 3 ) {
@@ -188,18 +188,18 @@ void interface(void) {
 	   
 		if( choix == 1 ) {
 		    if(testFermatmpz(n, k)) {
-			printf("\033[33mVotre nombre est premier\n\n\033[34m");
+			printf("\033[33mVotre nombre est premier\n\n\033[36m");
 		    }
 		    else {
-			printf("\033[35mVotre nombre n'est pas premier\n\n\033[34m");
+			printf("\033[35mVotre nombre n'est pas premier\n\n\033[36m");
 		    }
 		}
 		else if( choix == 2 ) {
 		    if(miller_rabbin(n, k)) {
-			printf("\033[33mVotre nombre est premier\n\n\033[34m");
+			printf("\033[33mVotre nombre est premier\n\n\033[36m");
 		    }
 		    else {
-			printf("\033[35mVotre nombre n'est pas premier\n\n\033[34m");
+			printf("\033[35mVotre nombre n'est pas premier\n\n\033[36m");
 		    }
 		}
 		else if( choix == 3 ) {
@@ -240,18 +240,18 @@ void interface(void) {
 		printf("\n");
 		if( choix == 1 ) {
 		    if(testFermatmpz(n, k)) {
-			printf("\033[33mVotre nombre est premier\n\n\033[34m");
+			printf("\033[33mVotre nombre est premier\n\n\033[36m");
 		    }
 		    else {
-			printf("\033[35mVotre nombre n'est pas premier\n\n\033[34m");
+			printf("\033[35mVotre nombre n'est pas premier\n\n\033[36m");
 		    }
 		}
 		else if( choix == 2 ) {
 		    if(miller_rabbin(n, k)) {
-			printf("\033[33mVotre nombre est premier\n\n\033[34m");
+			printf("\033[33mVotre nombre est premier\n\n\033[36m");
 		    }
 		    else {
-			printf("\033[35mVotre nombre n'est pas premier\n\n\033[34m");
+			printf("\033[35mVotre nombre n'est pas premier\n\n\033[36m");
 		    }
 		}
 		else if( choix == 3 ) {

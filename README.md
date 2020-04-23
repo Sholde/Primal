@@ -8,6 +8,6 @@
 
 <pre>make run</pre>
 
-## Voir les sources de projet le projet
+## Voir les sources du projet
 
 <pre>cd src/</pre>
