@@ -96,7 +96,7 @@ int creeEcrire(char * chemin)
 
 void interface(void) {
     
-    char *str="Bienvenue dans le programme de Lynda & Nicolas :) \n";
+    char *str="*****************Bienvenue dans le programme**************  \n";
     
     system("clear");//effacer le contenu de la fenetre 
     printf ("\033[32m");//permet de modifier la couleur 
